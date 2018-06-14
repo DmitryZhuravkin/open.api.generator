@@ -9,10 +9,12 @@ namespace DZzzz.OpenAPI.Infrastructure.Http
     public class HttpCommunicationService : ICommunicationService
     {
         private readonly IHttpClientFactory httpClientFactory;
+        private readonly ISerializer<string> serializer;
 
-        public HttpCommunicationService(IHttpClientFactory httpClientFactory)
+        public HttpCommunicationService(IHttpClientFactory httpClientFactory, ISerializer<string> serializer)
         {
             this.httpClientFactory = httpClientFactory;
+            this.serializer = serializer;
         }
 
         public async Task<T> SendRequestAsync<T>(string url)
@@ -25,9 +27,14 @@ namespace DZzzz.OpenAPI.Infrastructure.Http
             {
                 using (HttpResponseMessage message = await client.SendAsync(request).ConfigureAwait(false))
                 {
+                    message.EnsureSuccessStatusCode();
+
                     string stringContent = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                    //return serializer.Deserialize<TK>(stringContent);
+                    if (!String.IsNullOrEmpty(stringContent))
+                    {
+                        return serializer.Deserialize<T>(stringContent);
+                    }
 
                     return default(T);
                 }

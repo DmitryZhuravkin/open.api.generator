@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DZzzz.OpenAPI.Infrastructure\DZzzz.OpenAPI.Infrastructure.csproj" />
+    <ProjectReference Include="..\DZzzz.OpenAPI.Version12\DZzzz.OpenAPI.Version12.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using DZzzz.OpenAPI.Core.Interfaces;
+
 using Newtonsoft.Json;
 
 namespace DZzzz.OpenAPI.Infrastructure.Serialization

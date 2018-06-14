@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.OpenAPI.Infrastructur
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{257D987B-9C83-4FD8-BD2B-4EFEB74F1FA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.OpenAPI.Version12", "DZzzz.OpenAPI.Version12\DZzzz.OpenAPI.Version12.csproj", "{A58E2EF3-E1D6-4947-947C-21E9E73E68A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versions", "Versions", "{B5A74DC6-B007-43F8-A770-845F6F313939}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,10 @@ Global
 		{189E7C99-3715-442C-871B-15EC463664A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{189E7C99-3715-442C-871B-15EC463664A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{189E7C99-3715-442C-871B-15EC463664A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A58E2EF3-E1D6-4947-947C-21E9E73E68A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58E2EF3-E1D6-4947-947C-21E9E73E68A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58E2EF3-E1D6-4947-947C-21E9E73E68A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58E2EF3-E1D6-4947-947C-21E9E73E68A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +44,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F89473F7-DB62-4D73-8214-57A651F5434A} = {257D987B-9C83-4FD8-BD2B-4EFEB74F1FA1}
 		{189E7C99-3715-442C-871B-15EC463664A9} = {257D987B-9C83-4FD8-BD2B-4EFEB74F1FA1}
+		{A58E2EF3-E1D6-4947-947C-21E9E73E68A2} = {B5A74DC6-B007-43F8-A770-845F6F313939}
+		{B5A74DC6-B007-43F8-A770-845F6F313939} = {257D987B-9C83-4FD8-BD2B-4EFEB74F1FA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F62B1DDC-5318-4B52-B316-0DE94567CD4F}
