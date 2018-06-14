@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\V2.0\" />
+    <Folder Include="Core\V1.2\" />
+    <Folder Include="Templates\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DZzzz.OpenAPI.Infrastructure\DZzzz.OpenAPI.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
