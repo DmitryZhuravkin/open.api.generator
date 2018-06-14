@@ -1,8 +1,8 @@
 ﻿using System;
 
-using DZzzz.OpenAPI.Core.Model;
 using DZzzz.OpenAPI.Infrastructure.Http;
 using DZzzz.OpenAPI.Infrastructure.Serialization;
+using DZzzz.OpenAPI.Version12.Model;
 
 namespace DZzzz.OpenAPI.Generator
 {
@@ -15,9 +15,7 @@ namespace DZzzz.OpenAPI.Generator
 
             HttpCommunicationService testService = new HttpCommunicationService(clientFactory, serializer);
 
-            SwaggerModel model = testService.SendRequestAsync<SwaggerModel>("http://209.201.33.129:8080/docs/aq-api/apidocs/service.json").Result;
-
-
+            SwaggerModel model = testService.SendRequestAsync<SwaggerModel>("http://209.201.33.129:8080/docs/aq-api/apidocs/accounts.json").Result;
 
             Console.ReadKey(true);
         }

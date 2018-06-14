@@ -1,8 +1,8 @@
-﻿using DZzzz.OpenAPI.Version12.Model;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace DZzzz.OpenAPI.Core.Model
+using Newtonsoft.Json;
+
+namespace DZzzz.OpenAPI.Version12.Model
 {
     public class SwaggerModel
     {
@@ -21,7 +21,7 @@ namespace DZzzz.OpenAPI.Core.Model
         [JsonProperty("apis")]
         public List<Api> Apis { get; set; }
 
-        //[JsonProperty("models")]
-        //public Models Models { get; set; }
+        [JsonProperty("models")]
+        public Dictionary<string, DataModelItem> Models { get; set; }
     }
 }
