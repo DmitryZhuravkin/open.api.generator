@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versions", "Versions", "{B5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGeneration", "CodeGeneration", "{37B5EA64-3BE9-478A-9F38-ADDB6FE6F29F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.OpenAPI.CodeGeneration.CSharp", "DZzzz.OpenAPI.CodeGeneration.CSharp\DZzzz.OpenAPI.CodeGeneration.CSharp.csproj", "{A1822D07-FF39-4E2C-A805-A6C30F9FFF4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZzzz.OpenAPI.CodeGeneration.CSharp", "DZzzz.OpenAPI.CodeGeneration.CSharp\DZzzz.OpenAPI.CodeGeneration.CSharp.csproj", "{A1822D07-FF39-4E2C-A805-A6C30F9FFF4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{B99A3207-5DCF-4922-AA0D-D2A1A45CA5EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
