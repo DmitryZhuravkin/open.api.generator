@@ -1,0 +1,48 @@
+{
+  "swaggerVersion" : "1.2",
+  "apiVersion" : "1.0.0",
+  "basePath" : "/docs/aq-api/apidocs",
+  "apis" : [ {
+    "path" : "/users.{format}"
+  }, {
+    "path" : "/reservations_views.{format}"
+  }, {
+    "path" : "/forums.{format}"
+  }, {
+    "path" : "/analytics.{format}"
+  }, {
+    "path" : "/usergroups.{format}"
+  }, {
+    "path" : "/properties.{format}"
+  }, {
+    "path" : "/resources_views.{format}"
+  }, {
+    "path" : "/users_views.{format}"
+  }, {
+    "path" : "/locations.{format}"
+  }, {
+    "path" : "/resources_groups.{format}"
+  }, {
+    "path" : "/locale.{format}"
+  }, {
+    "path" : "/availability.{format}"
+  }, {
+    "path" : "/reservations.{format}"
+  }, {
+    "path" : "/languages.{format}"
+  }, {
+    "path" : "/applications.{format}"
+  }, {
+    "path" : "/chargecodes.{format}"
+  }, {
+    "path" : "/lookups.{format}"
+  }, {
+    "path" : "/accounts.{format}"
+  }, {
+    "path" : "/resources.{format}",
+    "description" : "<p>The Resource service provides an interface for creating, editing, and \n retrieving distinct resources in the Agilquest.com system. A Resource may be\n a Room, a service (e.g. coffee service), or a pooled or\n exhaustible type of resource that may be reserved in the Agilquest.com system.</p>"
+  }, {
+    "path" : "/system.{format}",
+    "description" : "<p>The System service provides an interface for creating, and editing\n system controlled values in the Agilquest.com system.</p>"
+  } ]
+}

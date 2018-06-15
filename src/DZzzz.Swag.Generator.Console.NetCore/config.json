@@ -1,0 +1,8 @@
+{
+  "swaggerURL": "http://209.201.33.129:8080/docs/aq-api/apidocs/service",
+  "swaggerFormat": "json",
+  "swaggerVersion": "1.2",
+  "outputFolder": "/d/test/generator.output",
+  "outputSolutionName": "AgilQuest.Phoenix",
+  "language": "CSharp"
+}

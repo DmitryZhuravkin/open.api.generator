@@ -1,0 +1,24 @@
+{
+  "apiVersion" : "1.0.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/aq-api",
+  "resourcePath" : "/analytics",
+  "apis" : [ {
+    "path" : "/analytics",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getAnalyticsToken",
+      "type" : "string",
+      "summary" : "Get Analytics Gateway Token",
+      "notes" : "<p>Retrieves a Agilquest Analytics session token required to interact with\n the Agilquest Analytics platform. This session token is generated for the \n User whose SYSID is provided as a query parameter to this operation.</p>\n \n <p>This operation requires a <strong>sysidUser</strong> query parameter of numeric type.</p>\n \n <p>This operation returns a String session token key.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the User does not have permissions to request available resources or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "text/plain", "application/json", "application/xml" ]
+    } ]
+  } ]
+}

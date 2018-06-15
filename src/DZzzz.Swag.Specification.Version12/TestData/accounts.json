@@ -1,0 +1,742 @@
+{
+  "apiVersion" : "1.0.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/aq-api",
+  "resourcePath" : "/accounts",
+  "apis" : [ {
+    "path" : "/accounts/business-units",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "makeBusinessUnit",
+      "type" : "businessUnit",
+      "parameters" : [ {
+        "type" : "businessUnit",
+        "description" : "{@link BusinessUnit}",
+        "paramType" : "body",
+        "name" : "_unit",
+        "required" : true
+      } ],
+      "summary" : "Create Business Units",
+      "notes" : "<p>Creates a new Business Unit within the Forum with which is the Home Forum of\n the User's Account. A Business Unit is an organizational descriptive unit which\n may be assigned to multiple Users.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must either be the SystemAdmin, or the user's HomeAccount must be the ForumOwner.</p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('BusinessUnit')\">Business Unit</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('BusinessUnit')\">Business Unit</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the requesting User does not have permissions to create Business Units, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Business Unit\n \n <p>If the provided Business Unit has a non-unique name, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Business Unit name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateBusinessUnit",
+      "type" : "businessUnit",
+      "parameters" : [ {
+        "type" : "businessUnit",
+        "description" : "{@link BusinessUnit}",
+        "paramType" : "body",
+        "name" : "_unit",
+        "required" : true
+      } ],
+      "summary" : "Update Business Units",
+      "notes" : "<p>Updates an existing Business Unit within the Forum with which is the Home Forum of\n the User's Account. A Business Unit is an organizational descriptive unit which\n may be assigned to multiple Users.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must either be the SystemAdmin, or the user's HomeAccount must be the ForumOwner.</p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('BusinessUnit')\">Business Unit</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('BusinessUnit')\">Business Unit</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the requesting User does not have permissions to update Business Units, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Business Unit Not Found\n \n <p>If the Business Unit identified cannot be found, the following exception is returned:\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Business Unit cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Business Unit\n \n <p>If the provided Business Unit has a non-unique name, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Business Unit name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/departments",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "makeDepartment",
+      "type" : "department",
+      "parameters" : [ {
+        "type" : "department",
+        "description" : "{@link Department}",
+        "paramType" : "body",
+        "name" : "_department",
+        "required" : true
+      } ],
+      "summary" : "Create Department",
+      "notes" : "<p>Creates a new Department within the Forum with which is the Home Forum of\n the User's Account. A Department is an organizational descriptive unit which\n may be assigned to multiple Users.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must either be the SystemAdmin, or the user's HomeAccount must be the ForumOwner.</p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('Department')\">Department</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Department')\">Department</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the requesting User does not have permissions to create Departments, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Department\n \n <p>If the provided Department has a non-unique name, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Department name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateDepartment",
+      "type" : "department",
+      "parameters" : [ {
+        "type" : "department",
+        "description" : "{@link Department}",
+        "paramType" : "body",
+        "name" : "_department",
+        "required" : true
+      } ],
+      "summary" : "Update Department",
+      "notes" : "<p>Updates an existing Department within the Forum with which is the Home Forum of\n the User's Account. A Department is an organizational descriptive unit which\n may be assigned to multiple Users.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must either be the SystemAdmin, or the user's HomeAccount must be the ForumOwner.</p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('Department')\">Department</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Department')\">Department</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the requesting User does not have permissions to update Departments, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Department Not Found\n \n <p>If the Department to update cannot be found, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Department is not found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Department\n \n <p>If the provided Department has a non-unique name, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Department name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/images",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getAccountImages",
+      "type" : "accountImagesWrapper",
+      "summary" : "Get Account Images",
+      "notes" : "<p>Retrieve all Account images for the currently logged in account. These images\n are intended for background displays and login screen images.</p>\n \n <p>This operation returns an <strong>Account Image Wrapper</strong> that includes the following fields:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr>\n    <td>images</td>\n    <td>Array of <a href=\"javascript:openDataWindow('AccountImage')\">Account Image</a> values.</td>\n    <td>List of images associated with the account.</td>\n  </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/links",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getAccountDisplayLinks",
+      "type" : "accoundDataLinkWrapper",
+      "summary" : "Get Account Display Links",
+      "notes" : "<p>Retrieves all Account Display Links for the currently logged in Account associated with\n the application. If there is no account currently logged into the Application, the operation\n returns an Authentication error.</p>\n \n <p>This operation returns a <strong>Account Display Link Wrapper</strong> value with the following fields:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td> </tr>\n  <tr>\n      <td>links</td>\n      <td>List of <a href=\"javascript:openDataWindow('AccountDisplayLink')\">Account Display Link</a> values.</td>\n      <td>Each Account Display Link provides a URL link value and name to display to an end user.</td>\n  </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the Authentication token provided is invalid, or there is no Account logged into the Application,\n the following error is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the Application cannot be authenticated.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/managers",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "makeManager",
+      "type" : "manager",
+      "parameters" : [ {
+        "type" : "manager",
+        "description" : ": {@link Manager} to create",
+        "paramType" : "body",
+        "name" : "_manager",
+        "required" : true
+      } ],
+      "summary" : "Create Manager",
+      "notes" : "<p>Creates a <a href=\"javascript:openDataWindow('Manager')\">Manager</a> value for\n use in assigning a Manager to Users within the requesting User's home Accout. A\n Manager value is also associated with a specific User who fills that position.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>                 <td>REQUIRED</td> </tr>\n </table>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('Manager')\">Manager</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Manager')\">Manager</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to manage the User's account, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Manager Name\n <p>If the Name value for the Manager position is not unique among all Managers for this account, the following exception is thrown:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Manager position name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateManager",
+      "type" : "manager",
+      "parameters" : [ {
+        "type" : "manager",
+        "description" : "{@link Manager} to create",
+        "paramType" : "body",
+        "name" : "_manager",
+        "required" : true
+      } ],
+      "summary" : "Update Manager",
+      "notes" : "<p>Updates a <a href=\"javascript:openDataWindow('Manager')\">Manager</a> value for\n use in assigning a Manager to Users within the requesting User's Home Forum. A\n Manager value is also associated with a specific User who fills that position.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td> <td>ALWAYS</td> </tr>\n </table>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('Manager')\">Manager</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Manager')\">Manager</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to manage the User's account, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Manager Not Found\n <p>If a matching Manager cannot be found for the provided Manager value, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Manager position is not found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Manager Name\n <p>If the Name value for the Manager position is not unique among all Managers for this account, the following exception is thrown:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Manager position name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "GET",
+      "nickname" : "getManagers",
+      "type" : "managerWrapper",
+      "summary" : "Get Managers",
+      "notes" : "<p>Retrieves all Managers for the Application.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to manage the User's account, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/roles",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "updateRole",
+      "type" : "role",
+      "parameters" : [ {
+        "type" : "role",
+        "description" : ": Role to create",
+        "paramType" : "body",
+        "name" : "_role",
+        "required" : true
+      } ],
+      "summary" : "Update the RoleAuthRules for a Role",
+      "notes" : "<p>Updates the <a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRules</a> for an existing \n <a href=\"javascript:openDataWindow('Role')\">Role</a>.  The Role itself is a system value and cannot\n be managed with this call, only the AuthRules associated with the Role are modified. \n in the Agilquest system for the User's home Account. A Role is a convenient way to associate multiple \n <a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType</a> values with a User.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>                 <td>REQUIRED</td> </tr>\n </table>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('Role')\">Role</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Role')\">Role</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to manage the User's account, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Role Not Found\n <p>If Role identified by the System ID cannot be found, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Role cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Role Name\n <p>If the Name value for the Role is not unique among all Roles for this account, the following exception is thrown:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Role name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/roles/{sysidRole}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getRole",
+      "type" : "role",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : ": Integer ID of the Role to retrieve",
+        "paramType" : "path",
+        "name" : "sysidRole",
+        "required" : true
+      } ],
+      "summary" : "Get Role",
+      "notes" : "<p>Retreives the <a href=\"javascript:openDataWindow('Role')\">Role</a> \n in the Agilquest system identified by the given System ID. A Role is a convenient way to associate multiple \n <a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType</a> values with\n a User.</p>\n \n <p>The requesting User must have <strong>one of</strong> the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>                 <td>CONDITIONAL</td> </tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ANOTHERS_RIGHTS</a></strong></td>         <td>CONDITIONAL</td> </tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_OWN_RIGHTS</a></strong></td>              <td>CONDITIONAL</td> </tr>\n </table>\n \n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Role')\">Role</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to manage the User's account, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Role Not Found\n <p>If Role identified by the System ID cannot be found, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Role cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/system/{sysidAccount}/images",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "addAccountImage",
+      "type" : "accountImagesWrapper",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "path",
+        "name" : "sysidAccount",
+        "required" : true
+      }, {
+        "type" : "MultipartFormDataInput",
+        "paramType" : "body",
+        "name" : "_input",
+        "required" : true
+      } ],
+      "summary" : "Add Account Image",
+      "notes" : "<p>Adds an Image to the store of Account Images.</p>\n \n <p>This operation requires a Multipart form data object which includes the image file to be uploaded.</p>\n \n <p>This operation returns an <strong>Account Image Wrapper</strong> that includes the following fields:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr>\n    <td>images</td>\n    <td>Array of <a href=\"javascript:openDataWindow('AccountImage')\">Account Image</a> values.</td>\n    <td>List of images associated with the account.</td>\n  </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/system/{sysidAccount}/images/{sysidImage}",
+    "operations" : [ {
+      "method" : "DELETE",
+      "nickname" : "removeAccountImage",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "path",
+        "name" : "sysidAccount",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "path",
+        "name" : "sysidImage",
+        "required" : true
+      } ],
+      "summary" : "Remove Account Image",
+      "notes" : "<p>This operation removes the Account Image specified by the sysidImage path parameter\n from the Account specified by the sysidAccount path parameter.</p>",
+      "responseMessages" : [ {
+        "code" : 204,
+        "message" : "NO CONTENT"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Account Not Found\n <p>If the specified account cannot be found, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Currency Type is not found.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/titles",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "makeTitle",
+      "type" : "title",
+      "parameters" : [ {
+        "type" : "title",
+        "description" : ": {@link Title} to create",
+        "paramType" : "body",
+        "name" : "_title",
+        "required" : true
+      } ],
+      "summary" : "Create Title",
+      "notes" : "<p>Creates a <a href=\"javascript:openDataWindow('Title')\">Title</a> value for\n use in assigning a Title to Users within the requesting User's home Accout.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>                 <td>REQUIRED</td> </tr>\n </table>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('Title')\">Title</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Title')\">Title</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to manage the User's account, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Title Name\n <p>If the Name value for the Title is not unique among all Roles for this account, the following exception is thrown:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Title name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateTitle",
+      "type" : "title",
+      "parameters" : [ {
+        "type" : "title",
+        "description" : ": {@link Title} to create",
+        "paramType" : "body",
+        "name" : "_title",
+        "required" : true
+      } ],
+      "summary" : "Update Title",
+      "notes" : "<p>Updates a <a href=\"javascript:openDataWindow('Title')\">Title</a> value for\n use in assigning a Title to Users within the requesting User's home Accout.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>                 <td>REQUIRED</td> </tr>\n </table>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('Title')\">Title</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Title')\">Title</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to manage the User's account, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Title Not Found\n <p>If the Title provided cannot be found in the Agilquest system, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Title cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Title Name\n <p>If the Name value for the Title is not unique among all Roles for this account, the following exception is thrown:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the Title name is not unique.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/accounts/{sysidAccount}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getOwnersAccount",
+      "type" : "ownersAccount",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : ": Integer System ID of the Account Data",
+        "paramType" : "path",
+        "name" : "sysidAccount",
+        "required" : true
+      } ],
+      "summary" : "Get Owners Account",
+      "notes" : "<p>Get the Owner Account data for an account. This represents the data for a \n tenant account in a forum. This is data that an account owner is allowed to update. \n Account owners cannot update their own license, the active flag, the schema, or \n the account type.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p></p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('OwnersAccountData')\">Owners Account Data</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to the requested Account Data or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Account Not Found\n <p>If the Account identified cannot be found, the following exception is returned:</p> \n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Account cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Account License\n <p>If the Account license is not valid, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if the Account license is invalid.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateOwnersAccount",
+      "type" : "ownersAccount",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : "Integer System ID of the Account to update",
+        "paramType" : "path",
+        "name" : "sysidAccount",
+        "required" : true
+      }, {
+        "type" : "ownersAccount",
+        "description" : "Owner Account Data update information",
+        "paramType" : "body",
+        "name" : "_account",
+        "required" : true
+      } ],
+      "summary" : "Update Owners Account",
+      "notes" : "<p>Update the owner account for a shared forum.This represents the data for a \n tenant account in a forum. This is data that an account owner is allowed to update. \n Account owners cannot update their own license, the active flag, the schema, or \n the account type.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('OwnersAccountData')\">Owners Account Data</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('OwnersAccountData')\">Owners Account Data</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the requesting User does not have permissions to the requested Account Data or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Account Not Found\n <p>If the Account identified cannot be found, the following exception is returned:</p> \n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Account cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Account Validation Failure\n \n <p>If the provided Account information cannot be validated, or the password\n does not conform to the Home Forum password policies, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if the Account license is invalid.</li>\n  <li><a href=\"javascript:openDataWindow('PasswordException')\">Password Exception</a> if the Account password does not conform to the Home Forum password policy.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  } ],
+  "models" : {
+    "aqDate" : {
+      "id" : "aqDate",
+      "properties" : {
+        "year" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "month" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfMonth" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "minute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "tzIdValue" : {
+          "type" : "string"
+        },
+        "noEndDate" : {
+          "type" : "boolean"
+        },
+        "discriminator" : {
+          "type" : "string"
+        }
+      },
+      "subTypes" : [ "aqNoEndDate" ],
+      "discriminator" : "discriminator",
+      "required" : [ "discriminator" ]
+    },
+    "ownersAccount" : {
+      "id" : "ownersAccount",
+      "properties" : {
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "login" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "displayLinks" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "accountDisplayLink"
+          },
+          "uniqueItems" : true
+        },
+        "images" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "accountImage"
+          }
+        }
+      }
+    },
+    "businessUnit" : {
+      "id" : "businessUnit",
+      "properties" : {
+        "sysidBusinessUnit" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "role" : {
+      "id" : "role",
+      "properties" : {
+        "sysidRole" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "roleAuthRules" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "auth-rule"
+          },
+          "uniqueItems" : true
+        }
+      }
+    },
+    "manager" : {
+      "id" : "manager",
+      "properties" : {
+        "sysidManager" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "sysidApplicationUser" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "accountImagesWrapper" : {
+      "id" : "accountImagesWrapper",
+      "properties" : {
+        "images" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "accountImage"
+          }
+        }
+      }
+    },
+    "aqNoEndDate" : {
+      "id" : "aqNoEndDate",
+      "properties" : { }
+    },
+    "title" : {
+      "id" : "title",
+      "properties" : {
+        "sysidTitle" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "accountDisplayLink" : {
+      "id" : "accountDisplayLink",
+      "properties" : {
+        "sysidDisplayLink" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "display" : {
+          "type" : "boolean"
+        },
+        "external" : {
+          "type" : "boolean"
+        },
+        "targetURL" : {
+          "type" : "string"
+        },
+        "imageURL" : {
+          "type" : "string"
+        },
+        "languageTag" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "activationAqDate" : {
+          "type" : "aqDate"
+        },
+        "expirationAqDate" : {
+          "type" : "aqDate"
+        }
+      }
+    },
+    "auth-rule" : {
+      "id" : "auth-rule",
+      "properties" : {
+        "sysidRoleAuthRule" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAuthorizationRule" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "managerWrapper" : {
+      "id" : "managerWrapper",
+      "properties" : {
+        "managers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "manager"
+          }
+        }
+      }
+    },
+    "accountImage" : {
+      "id" : "accountImage",
+      "properties" : {
+        "sysidAccountImage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "imageSource" : {
+          "type" : "string"
+        },
+        "thumbnailSource" : {
+          "type" : "string"
+        },
+        "defaultImage" : {
+          "type" : "boolean"
+        },
+        "height" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "width" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "displayOrder" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "accoundDataLinkWrapper" : {
+      "id" : "accoundDataLinkWrapper",
+      "properties" : {
+        "links" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "accountDisplayLink"
+          }
+        }
+      }
+    },
+    "department" : {
+      "id" : "department",
+      "properties" : {
+        "sysidDepartment" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

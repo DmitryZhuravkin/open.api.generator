@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.Swag.Specification.Ve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.Swag.CodeGeneration.CSharp", "DZzzz.Swag.CodeGeneration.CSharp\DZzzz.Swag.CodeGeneration.CSharp.csproj", "{6BE3B5A1-CC45-4E2A-923A-E3C1CBF8DE29}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{FF34FB88-C0A7-40AF-AFFF-0EE4B79AECF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.JsonSchemaToCSharp.Tool", "DZzzz.JsonSchemaToCSharp.Tool\DZzzz.JsonSchemaToCSharp.Tool.csproj", "{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,10 @@ Global
 		{6BE3B5A1-CC45-4E2A-923A-E3C1CBF8DE29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BE3B5A1-CC45-4E2A-923A-E3C1CBF8DE29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BE3B5A1-CC45-4E2A-923A-E3C1CBF8DE29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +76,7 @@ Global
 		{1570D73E-79E1-4C06-8AC7-A2DBE5B75A33} = {DF491799-6FB3-4FD1-AB9F-432A519257AB}
 		{D1A29E57-BCE2-4EF3-B97A-D5891647F51F} = {DF491799-6FB3-4FD1-AB9F-432A519257AB}
 		{6BE3B5A1-CC45-4E2A-923A-E3C1CBF8DE29} = {05A48EB4-83BE-4466-84B9-9263DC137B17}
+		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107} = {FF34FB88-C0A7-40AF-AFFF-0EE4B79AECF9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {280C7B18-5687-4E71-AFEB-51AE41EB4956}

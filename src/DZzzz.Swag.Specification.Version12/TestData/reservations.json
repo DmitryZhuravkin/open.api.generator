@@ -1,0 +1,1509 @@
+{
+  "apiVersion" : "1.0.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/aq-api",
+  "resourcePath" : "/reservations",
+  "apis" : [ {
+    "path" : "/reservations/approve",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "approveReservation",
+      "type" : "changeStateDataWrapper",
+      "parameters" : [ {
+        "type" : "changeStateDataWrapper",
+        "description" : "{@link ChangeStateDataWrapper} containing reservation change states",
+        "paramType" : "body",
+        "name" : "_states",
+        "required" : true
+      } ],
+      "summary" : "Approve Reservation",
+      "notes" : "<p>Handles the details of approving a reservation that's AWAITING_DECISION or WAITLIST_AWAITING_DECISION.  \n This operation validates that one and only one approval is being submitted, and that \n all other Change State Data values are either DENY, CANCEL, or BUMP.</p>\n \n <p></p>\n \n <p>This operation requires a <strong>Change State Data Wrapper</strong> with the following attributes</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Requirement</strong></td> <td><strong>Description</strong></td> </tr>\n  <tr>\n    <td>changes</td>\n    <td>List of <a href=\"javascript:openDataWindow('ChangeStateData')\">Change State Data</a> values.</td>\n    <td>ALWAYS</td>\n    <td>List of change state data values along with the single reservation which will be approved.</td>\n </table>\n \n <p>This operation returns a <strong>Change State Data Warpper</strong> with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td>   <td><strong>Description</strong></td> </tr>\n  <tr>\n    <td>changes</td>\n    <td>List of <a href=\"javascript:openDataWindow('ChangeStateData')\">Change State Data</a> values.</td>\n    <td>List of change state data values representing the status of each change state request. Each Change State Data value\n        includes a boolean <strong>succeeded</strong> value, indicating that the state change of the Reservation identified in the Change\n        State Data value succeeded, and a <strong>exceptionData</strong> value which includes information about why a State Change may have\n        failed.</td>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid State Change\n <p>If the Reservation cannot be approved, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('StateChangeException')\">State Change Exception</a> if the reservation state cannot be modified to an Approved status.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/cost-estimates",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "calculateCostEstimate",
+      "type" : "costCalculationResult",
+      "parameters" : [ {
+        "type" : "CostEstimateRequest",
+        "paramType" : "body",
+        "name" : "_request",
+        "required" : true
+      } ],
+      "summary" : "Calculate Estimate.",
+      "notes" : "<p>Calculates a cost estimate for the given reservation using the provided currency type.</p>\n \n <p>This operation requires a <strong>Cost Estimate Request</strong> which includes the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td><td><strong>Data Type</strong></td><td><strong>Description</strong></td></tr>\n  <tr>\n    <td>sysidCurrency</td>\n    <td>Integer</td>\n    <td>Unique Identifier for the type of currency to use when performing the cost estimate.</td>\n  </tr>\n  <tr>\n    <td>reservation</td>\n    <td>One of the following types:</br>\n          <a href=\"javascript:openDataWindow('ExhaustibleReservation')\">Exhaustible Reservation</a></br>\n          <a href=\"javascript:openDataWindow('PooledReservation')\">Pooled Reservation</a></br>\n          <a href=\"javascript:openDataWindow('RoomReservation')\">Room Reservation</a></br>\n          <a href=\"javascript:openDataWindow('ServiceReservation')\">Service Reservation</a>\n     </td>\n     <td>The Reservation for which the cost will be estimated.</td>\n  </tr>\n </table>\n \n <em>Note: Each Reservation may only have one child asset.</em>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('CostCalculationResult')\">Cost Calculation Result</a>.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Reservation\n \n <p>If the Reservation data provided is invalid, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('ValidationException')\">Validation Exception</a> if the Reservation is invalid.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/drafts",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "saveDraft",
+      "type" : "reservationConfirmation",
+      "parameters" : [ {
+        "type" : "ReservationGroup",
+        "description" : "Reservation Event Group with draft reservations",
+        "paramType" : "body",
+        "name" : "_event",
+        "required" : true
+      } ],
+      "summary" : "Save Draft",
+      "notes" : "<p>Saves a Draft reservation event. A draft event is a reservation group with reservations that are \n intentionally incomplete. These reservations are not yet placed in the agilquest system, meaning that\n the resources referenced by the reservations in the draft are not actually reserved. In order for\n the reservations to be finalized, the draft Resource Event would be submitted to the <strong>Create Reservation Event</strong>\n service end point.</p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('ReservationGroup')\">Reservation Group</a> event value.</p>\n \n <p>This operation returns a <strong>Reservation Confirmation</strong> value with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr>\n    <td>confirmationNumber</td>\n    <td>Long value</td>\n    <td>The Confirmation Number of the newly created reservation.</td>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Required Data Not Found\n <p>If any of the requested Resources, Users, or other attributes cannot be found, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if any Resource, User, etc., is not found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Reservation\n <p>If the Reservation Group provided violates any of the business rules established within the Forum,\n the following exception is returned:</p>\n \n  <ul>\n    <li><a href=\"javascript:openDataWindow('BusinessException')\">Business Exception</a> if the Reservation violates a Business rule established wihtin the Forum.</li>\n  </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "modifyDraft",
+      "type" : "reservationConfirmation",
+      "parameters" : [ {
+        "type" : "ReservationGroup",
+        "description" : "Reservation Event Group with draft reservations",
+        "paramType" : "body",
+        "name" : "_event",
+        "required" : true
+      } ],
+      "summary" : "Update Draft",
+      "notes" : "<p>Modify an existing draft Reservation.</p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('ReservationGroup')\">Reservation Group</a> event value.</p>\n \n <p>This operation returns a <strong>Reservation Confirmation</strong> value with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr>\n    <td>confirmationNumber</td>\n    <td>Long value</td>\n    <td>The Confirmation Number of the newly created reservation.</td>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Required Data Not Found\n <p>If any of the requested Resources, Users, or other attributes cannot be found, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if any Resource, User, etc., is not found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Reservation\n <p>If the Reservation Group provided violates any of the business rules established within the Forum,\n the following exception is returned:</p>\n \n  <ul>\n    <li><a href=\"javascript:openDataWindow('BusinessException')\">Business Exception</a> if the Reservation violates a Business rule established wihtin the Forum.</li>\n  </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/drafts/{draftId}",
+    "operations" : [ {
+      "method" : "DELETE",
+      "nickname" : "deleteDraft",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "long Draft ID Confirmation Number",
+        "paramType" : "path",
+        "name" : "draftId",
+        "required" : true
+      } ],
+      "summary" : "Delete Draft",
+      "notes" : "<p>Deletes the Reservation Event draft associated with the given Draft ID. A draft reservation event has not yet\n reserved any of the resources associated with the draft reservations, serving only as a temporary storage of an \n incomplete Reservation that can be completed and finalized at a later time.</p>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "4"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Draft Not Found\n <p>If the draft identified by the given draft ID cannot be found, the following\n exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the draft is not found.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ]
+    } ]
+  }, {
+    "path" : "/reservations/events",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createReservationEvent",
+      "type" : "reservationConfirmation",
+      "parameters" : [ {
+        "type" : "reservationRequest",
+        "description" : "Reservation Request with the Reservation Event and numeric Sysid of the User whose User Group Allocations apply to creating the Reservation Event.",
+        "paramType" : "body",
+        "name" : "_request",
+        "required" : true
+      } ],
+      "summary" : "Create Reservation Event.",
+      "notes" : "<p>Creates a Reservation Event in the agilquest System for the User identified as the Reservation owner and the Resources identified\n as being reserved. An Event may hold one or more Resource Reservations. Once a Reservation Event is created, a confirmation number is returned.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td>  <td><strong>Required</strong></td>  </tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_OWN_REQUESTS</a></strong></td>            <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_OWN_RESERVATIONS</a></strong></td>        <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ANOTHERS_REQUESTS</a></strong></td>       <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ANOTHERS_RESERVATIONS</a></strong></td>   <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MAKE_LONG_TERM_RESV</a></strong></td>            <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MAKE_VIDEO_EVENT</a></strong></td>               <td>CONDITIONAL</td></tr>\n </table>\n \n <p>This operation requires a <strong>Reservation Request</strong> value with the following fields:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr><td>sysidUserAlloc</td>\n      <td>Integer <strong>SYSID</strong> value</strong></td>\n      <td>The System ID of the User whose User Group Allocations apply for reserving the requested Resources that are defined \n          in the Reservation values contained in the Reservation Event of the Request.\n          This allows designated Users, such as a Concierge, to make Reservations for other Users.</td>\n  </tr>\n  <tr>\n      <td>event</td>\n      <td><a href=\"javascript:openDataWindow('ReservationGroup')\">Reservation Group</a></td>\n      <td>A Collection of one or more Reservations to create.</td>\n  </tr>\n </table>\n \n <p>This operation returns a <strong>Reservation Confirmation</strong> with the following fields:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr><td>confirmationNumber</td>     <td>Long Numeric value</td> <td>Unique ID of the Reservation Event within the agilquest system.</td></tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Resources Not Found\n <p>If any of the requested Resources, Users, or other attributes cannot be found, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if any Resource, User, etc., is not found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Reservation\n <p>If the Reservation Request provided violates any of the business rules established within the Forum, the following exception is returned:</p>\n \n  <ul>\n    <li><a href=\"javascript:openDataWindow('BusinessException')\">Business Exception</a> if the Reservation violates a Business rule established wihtin the Forum.</li>\n  </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateReservationEvent",
+      "type" : "ReservationGroup",
+      "parameters" : [ {
+        "type" : "reservationRequest",
+        "paramType" : "body",
+        "name" : "_request",
+        "required" : true
+      } ],
+      "summary" : "Modify Reservation Event",
+      "notes" : "<p>Modifies the passed Reservation Event (or Reservation Group) using the Resource Allocation Relationships\n attributed to the User identified by the <strong>sysidUser</strong> path parameter. The Reservation Event Group\n includes all of the Resource Reservations for the event as well as additional information about the event itself. </p>\n \n <p><em>Note: If the Reservations within the Reservation Event are already in a <strong>Final State</strong>,\n the user must have the rights to modify final reservations.</em></p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MODIFY_FINAL_RESERVATIONS</a></strong></td>      <td>CONDITIONAL</td> </tr>\n </table>\n \n \n <p>This operation requires a <strong>Reservation Request</strong> value with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Required</strong></td>  <td><strong>Description</strong></td></tr>\n  <tr>\n    <td>sysidUserAlloc</td>\n    <td>Integer User SYSID value</td>\n    <td>REQUIRED</td>\n    <td>The User SYSID whose Allocations will be used to modify the Event.</td>\n  </tr>\n  <tr>\n    <td>event</td>\n    <td><a href=\"javascript:openDataWindow('ReservationGroup')\">Reservation Group</a> value to modify.</td>\n    <td>REQUIRED</td>\n    <td>The Reservation Event to modify</td>\n </table>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('ReservationGroup')\">Reservation Group</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Reservation Event Not Found\n <p>If the Reservation Event provided does not match any existing Reservation Events in the system, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Reservation Group for the given confirmation number cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Reservation Event\n <p>If the Reservation Event information provided is not valid, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('BusinessException')\">Business Exception</a> if the reservation event information is invalid.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/events/{confirmationNo}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getReservationEvent",
+      "type" : "ReservationGroup",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "long confirmation number",
+        "paramType" : "path",
+        "name" : "confirmationNo",
+        "required" : true
+      }, {
+        "type" : "array",
+        "description" : "List of Integer values that correspond to {@link ReservationStateType} enumerations to use for search. Can be null.",
+        "items" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "paramType" : "query",
+        "name" : "rst"
+      } ],
+      "summary" : "Get Reservation Event.",
+      "notes" : "<p>Retrieves an existing Reservation Event (or Reservation Group) based on the confirmation\n number path paramter. Reservation State Type values may be inclued as query parameters\n to further filter the reservations returned in the reservation event group. The Reservation Event Group\n includes all of the Resource Reservations for the event as well as additional information about the event itself.</p> \n \n <p></p>\n \n \n <p>This operation returns a <a href=\"javascript:openDataWindow('ReservationGroup')\">Reservation Group</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Reservation Event Not Found\n <p>If the Reservation Event with the given <strong>Confirmation Number</strong>\n value does not match any existing Reservation Events in the system, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Reservation Group for the given confirmation number cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/express-check-in",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "doExpressCheckIn",
+      "type" : "reservationViewWrapper",
+      "summary" : "Express Check In.",
+      "notes" : "<p>Performs an Express check-in for the user identified by the User Authentication Token.  If the\n Forum Account property <strong>checkin.to.all</strong> has a value of <strong>true</strong>, this will check in to all\n reservations for the day without adjusting the start time. The operation will return a list of \n Reservation Views of the Reservations that the User is now checked in to and a <strong>total</strong> value indicating the total\n number of Reservation Views returned.</p>\n \n <p>This operation returns a <strong>Reservation View Wrapper</strong> value with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr>\n    <td>views</td>\n    <td>List of <a href=\"javascript:openDataWindow('ReservationViewBase')\">Reservation View</a> values</td>\n    <td>Reservation Views describe a reservation. These views will be in the order requested by the submitted criteria search value.</td>\n  </tr>\n  <tr>\n    <td>hasAdditional</td>\n    <td>Boolean value</td>\n    <td>Flag indicating that additional results may be queried from the agilquest system. Additional calls to the operation that update the criteria Start Row to the next start row value included in this result will retrieve the additional results for this query.</td>\n  </tr>\n  <tr>\n    <td>nextStartRow</td>\n    <td>Integer value</td>\n    <td>Numeric Index of the next result set row to use for retrieving additional results for the same query. Used for pagination.</td>\n  </tr>\n  <tr>\n    <td>count</td>\n    <td>Integer value</td>\n    <td>Numeric count of Reservation Views returned in this result set. Additional calls may return with additional results depending on the next start row configuration.</td>\n  </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/gaps",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "gapContinuous",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "gapContinuousData",
+        "description" : "{@link GapContinuousData} value used to gap a continuous or open-ended reservation",
+        "paramType" : "body",
+        "name" : "_gapContinuousData",
+        "required" : true
+      } ],
+      "summary" : "Gap Continuous",
+      "notes" : "<p>Gaps a continuous reservation, taking care of all other business processes. Gapping a continuous reservation\n means breaking up the long term continuous reservation into two separate reservations based on the \n stopping time and starting time of the gap information. The <strong>stop time</strong> must occur\n <strong>before</strong> the <strong>restart time</strong>.</p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('GapContinuousData')> Data</a> value.</p>\n \n <p>This operation returns a <strong>HTTP Status 200</strong> on success.</p>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "4"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Reservation Event Not Found\n <p>If the Reservation ID provided does not match any existing Reservation in the system, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Reservation for the given SYSID cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Gap Request\n <p>If the gap request data is invalid for the given Reservation, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('BusinessException')\">Business Exception</a> if the gap request data is invalid for the reservation.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/recurring-dates/calculate-last-date",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getLastRecurrenceDate",
+      "type" : "aqDate",
+      "parameters" : [ {
+        "type" : "recurrenceRule",
+        "paramType" : "body",
+        "name" : "_rule",
+        "required" : true
+      } ],
+      "summary" : "Calculate Last Date",
+      "notes" : "<p>This operation calculates the end date for the given <a href=\"javascript:openDataWindow('RecurrenceRule')\">Recurrence Rule</a>\n provided and returns the corresponding <a href=\"javascript:openDataWindow('AqDate')\">AqDate</a> value. \n \n If the recurrence rule is has no end date, an <a href=\"javascript:openDataWindow('AqNoEndDate')\">AqNoEndDate</a> value is returned.</p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('RecurrenceRule')\">Recurrence Rule</a> value.</p>\n \n <p>This operation returns an <a href=\"javascript:openDataWindow('AqDate')\">AqDate</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Recurrence Rule\n \n <p>If the Recurrence Rule provided is invalid, the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('ValidationException')\">Validation Exception</a> if the Recurrence Rule is invalid.</li>\n  <li><a href=\"javascript:openDataWindow('NoOccurencesException')\">Validation Exception</a> if no date occurrences can be generated for the given Rule.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/states",
+    "operations" : [ {
+      "method" : "PUT",
+      "nickname" : "changeReservationState",
+      "type" : "changeStateDataWrapper",
+      "parameters" : [ {
+        "type" : "changeStateDataWrapper",
+        "description" : "Wrapper container for list of Change State Data values",
+        "paramType" : "body",
+        "name" : "_changes",
+        "required" : true
+      } ],
+      "summary" : "Change Reservation State.",
+      "notes" : "<p>Modifies the existing state of each Reservation identified in the accompanying \n array of Change State Data values supplied in the argument value. The Change State Data values allow \n the state of the Reservation to be updated by Users who are authorized to change the state of a Reservation.</p>\n \n <p>The operation requires a <strong>Change State Data Wrapper</strong> value:</p>\n \n <table>\n  <tr><td><strong>Name<strong></td> <td><strong>Data Type</strong></td> <td><strong>Required</strong></td> <td><strong>Description</strong></td></tr>\n  <tr>\n    <td>changes</td>\n    <td>List of <a href=\"javascript:openDataWindow('ChangeStateData')\">Change State Data</a> values.</td>\n    <td>ALWAYS</td>\n    <td>Collection of Change State Data values which represent individual change state requests. Each Change State request will be returned in the result wrapper, with an indicator of whether the state change succeeded or failed. Failed requests will include error data as to why the request failed.</td>\n  </tr>\n </table>\n \n <p>The service end point returns an array of Change State Data values matching the input values. Each Change State Data value\n includes a boolean <strong>succeeded</strong> value, indicating that the state change of the Reservation identified in the Change\n State Data value succeeded, and a <strong>exceptionData</strong> value which includes information about why a State Change may have\n failed.</p>\n \n <p>The operation requires a <strong>Change State Data Wrapper</strong> value:</p>\n \n <table>\n  <tr><td><strong>Name<strong></td> <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr>\n    <td>changes</td>\n    <td>List of <a href=\"javascript:openDataWindow('ChangeStateData')\">Change State Data</a> values.</td>\n    <td>Collection of Change State Data values which include the Responses for each Change State request. Failed requests will include error data as to why the request failed.</td>\n  </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/reservations/{sysidReservation}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getReservation",
+      "type" : "Reservation",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int64",
+        "description" : "long reservation number",
+        "paramType" : "path",
+        "name" : "sysidReservation",
+        "required" : true
+      }, {
+        "type" : "array",
+        "description" : "List of Integer values that correspond to {@link Reservation State Type} enumerations to use for search. Can be null.",
+        "items" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "paramType" : "query",
+        "name" : "rst"
+      } ],
+      "summary" : "Get Reservation.",
+      "notes" : "<p>Retrieves an existing Reservation from the agilquest System using the <strong>sysidReservation</strong> value of the desired Reservation. Additional\n <strong>sysidReservationStateType</strong> values may be included as Query Parameters to retrieve the Reservation only if it is within one of the\n given states. See the <strong>Reservation States</strong> section for more details. </p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Reservation')\">Reservation</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Reservation Event Not Found\n <p>If the Reservation ID provided does not match any existing Reservation in the system, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Reservation for the given SYSID cannot be found.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "modifyReservation",
+      "type" : "Reservation",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "path",
+        "name" : "sysidReservation",
+        "required" : true
+      }, {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : "Integer ID of the user whose allocations apply",
+        "paramType" : "query",
+        "name" : "sysidUser"
+      }, {
+        "type" : "Reservation",
+        "description" : "{@link Reservation}",
+        "paramType" : "body",
+        "name" : "_modReservation",
+        "required" : true
+      } ],
+      "summary" : "Modify Reservation.",
+      "notes" : "<p>Modifies a single Reservation, identified by the Reservation SYSID path parameter,\n in a Reservation Event. If provided, the allocation permissions attributed to the User identified by\n the <strong>sysidUser</strong> query parameter are used when modifying the reservation. Otherwise,\n the allocation permissions of the Reservation's Owner are used.</p> \n \n <p>The identified User is the User whose Allocation Relationships will be applied to the modified reservation. In other words, \n the User identified must have the appropriate Allocation Relationships with all resources \n identified in the Reservation in order to request or reserve the resources identified in the reservation.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td>  <td><strong>Required</strong></td>  </tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_OWN_REQUESTS</a></strong></td>            <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_OWN_RESERVATIONS</a></strong></td>        <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ANOTHERS_REQUESTS</a></strong></td>       <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ANOTHERS_RESERVATIONS</a></strong></td>   <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MAKE_LONG_TERM_RESV</a></strong></td>            <td>CONDITIONAL</td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MAKE_VIDEO_EVENT</a></strong></td>               <td>CONDITIONAL</td></tr>\n </table>\n \n <p></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('Reservation')\">Reservation</a> value.</p>\n \n <p>This operation may include an optional <strong>sysidUser</strong> query parameter identifying the User whose allocation permissions should be applied to perform the modification.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('Reservation')\">Reservation</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Resources Not Found\n <p>If any of the requested Resources, Users, or other attributes cannot be found, the following exception is returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if any Resource, User, etc., is not found.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Reservation\n <p>If the Reservation Request provided violates any of the business rules established within the Forum,\n  the following exception is returned:</p>\n \n  <ul>\n    <li><a href=\"javascript:openDataWindow('BusinessException')\">Business Exception</a> if the Reservation violates a Business rule established wihtin the Forum.</li>\n  </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  } ],
+  "models" : {
+    "exception" : {
+      "id" : "exception",
+      "properties" : {
+        "sysidRecurrenceRuleException" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "resourcePricings" : {
+      "id" : "resourcePricings",
+      "properties" : {
+        "sysidResourcePricings" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidResource" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pricings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "pricing"
+          }
+        },
+        "aqActiveDate" : {
+          "type" : "aqDate"
+        }
+      }
+    },
+    "reservationChargeCode" : {
+      "id" : "reservationChargeCode",
+      "properties" : {
+        "sysidReservationChargeCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "chargeCode" : {
+          "type" : "string"
+        },
+        "percent" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "changeStateDataWrapper" : {
+      "id" : "changeStateDataWrapper",
+      "properties" : {
+        "changes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "changeStateData"
+          }
+        }
+      }
+    },
+    "gapContinuousData" : {
+      "id" : "gapContinuousData",
+      "properties" : {
+        "stopTime" : {
+          "type" : "aqDate"
+        },
+        "reStartTime" : {
+          "type" : "aqDate"
+        },
+        "sysidReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "suppressEmail" : {
+          "type" : "boolean"
+        },
+        "sysidReservationActionType" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "imageLocatorData" : {
+      "id" : "imageLocatorData",
+      "properties" : {
+        "sysidMapLocator" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidMapImage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidLocatorImage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "left" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "top" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "height" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "width" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "transparency" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rotation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "locatorImage" : {
+          "type" : "locatorImage"
+        }
+      }
+    },
+    "ReservationGroup" : {
+      "id" : "ReservationGroup",
+      "properties" : {
+        "sysidConfirmationNumber" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "sysidEventCreator" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidEventOwner" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "eventInfoUrl" : {
+          "type" : "string"
+        },
+        "comment" : {
+          "type" : "string"
+        },
+        "totalCost" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "recurrenceRule" : {
+          "type" : "recurrenceRule"
+        },
+        "reservations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "Reservation"
+          },
+          "uniqueItems" : true
+        },
+        "aqCreateTime" : {
+          "type" : "aqDate"
+        },
+        "aqEventStartTime" : {
+          "type" : "aqDate"
+        },
+        "aqEventEndTime" : {
+          "type" : "aqDate"
+        },
+        "reservationGroupType" : {
+          "type" : "string",
+          "enum" : [ "STANDARD", "MULTIPOINT" ]
+        },
+        "discriminator" : {
+          "type" : "string"
+        }
+      },
+      "subTypes" : [ "multipointEvent", "standardEvent" ],
+      "discriminator" : "discriminator",
+      "required" : [ "discriminator" ]
+    },
+    "pooledReservation" : {
+      "id" : "pooledReservation",
+      "properties" : {
+        "deliveryLocation" : {
+          "type" : "string"
+        },
+        "specialInstructions" : {
+          "type" : "string"
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "changeStateData" : {
+      "id" : "changeStateData",
+      "properties" : {
+        "sysidReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sysidReservationActionType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "applyToRemaining" : {
+          "type" : "boolean"
+        },
+        "suppressEmails" : {
+          "type" : "boolean"
+        },
+        "succeeded" : {
+          "type" : "boolean"
+        },
+        "exceptionData" : {
+          "type" : "error"
+        }
+      }
+    },
+    "recurrenceRule" : {
+      "id" : "recurrenceRule",
+      "properties" : {
+        "sysidRecurrenceRule" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidRecurrencePatternType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidMonthlyDayOccurrenceType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidMonthlyDayType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "aqStartDate" : {
+          "type" : "aqDate"
+        },
+        "aqEndDate" : {
+          "type" : "aqDate"
+        },
+        "occurrences" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "interval" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "theDate" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "onSunday" : {
+          "type" : "boolean"
+        },
+        "onMonday" : {
+          "type" : "boolean"
+        },
+        "onTuesday" : {
+          "type" : "boolean"
+        },
+        "onWednesday" : {
+          "type" : "boolean"
+        },
+        "onThursday" : {
+          "type" : "boolean"
+        },
+        "onFriday" : {
+          "type" : "boolean"
+        },
+        "onSaturday" : {
+          "type" : "boolean"
+        },
+        "exceptions" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "exception"
+          },
+          "uniqueItems" : true
+        },
+        "excludedDates" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "aqDate"
+          }
+        }
+      }
+    },
+    "serviceReservation" : {
+      "id" : "serviceReservation",
+      "properties" : {
+        "deliveryLocation" : {
+          "type" : "string"
+        },
+        "specialInstructions" : {
+          "type" : "string"
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "multipointEvent" : {
+      "id" : "multipointEvent",
+      "properties" : { }
+    },
+    "error" : {
+      "id" : "error",
+      "properties" : {
+        "errorCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "subErrorCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "identifier" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "arguments" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "ExceptionArgument"
+          }
+        }
+      }
+    },
+    "dateArg" : {
+      "id" : "dateArg",
+      "properties" : {
+        "key" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "aqDate"
+        }
+      }
+    },
+    "codeTableData" : {
+      "id" : "codeTableData",
+      "properties" : {
+        "sysid" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "languageTagKey" : {
+          "type" : "string"
+        }
+      }
+    },
+    "CostEstimateRequest" : {
+      "id" : "CostEstimateRequest",
+      "properties" : {
+        "sysidCurrency" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "reservation" : {
+          "type" : "Reservation"
+        }
+      }
+    },
+    "standardEvent" : {
+      "id" : "standardEvent",
+      "properties" : { }
+    },
+    "reservationViewWrapper" : {
+      "id" : "reservationViewWrapper",
+      "properties" : {
+        "hasAdditional" : {
+          "type" : "boolean"
+        },
+        "nextStartRow" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "count" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "views" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "ReservationViewBase"
+          }
+        }
+      }
+    },
+    "Reservation" : {
+      "id" : "Reservation",
+      "properties" : {
+        "sysidReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sysidCreatorApplication" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidDurationType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidOrgDurationType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidCategory" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidParentReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sysidConfirmationNumber" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sysidStateType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidPurposeType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidResource" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidUserOwner" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidResourcePricings" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "privateResv" : {
+          "type" : "boolean"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "comments" : {
+          "type" : "string"
+        },
+        "emailComments" : {
+          "type" : "string"
+        },
+        "chargeBackAmount" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "chargeCodes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "reservationChargeCode"
+          },
+          "uniqueItems" : true
+        },
+        "children" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "Reservation"
+          },
+          "uniqueItems" : true
+        },
+        "aqCreateTime" : {
+          "type" : "aqDate"
+        },
+        "aqStartTime" : {
+          "type" : "aqDate"
+        },
+        "aqEndTime" : {
+          "type" : "aqDate"
+        },
+        "aqSetupTime" : {
+          "type" : "aqDate"
+        },
+        "aqBreakDownTime" : {
+          "type" : "aqDate"
+        },
+        "pricings" : {
+          "type" : "resourcePricings"
+        },
+        "stateHistories" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "reservationStateHistory"
+          }
+        },
+        "recurrenceRule" : {
+          "type" : "recurrenceRule"
+        },
+        "suppressEmails" : {
+          "type" : "boolean"
+        },
+        "resourceType" : {
+          "type" : "string",
+          "enum" : [ "ROOM", "EXHAUSTIBLE", "POOLED", "SERVICE" ]
+        },
+        "discriminator" : {
+          "type" : "string"
+        }
+      },
+      "subTypes" : [ "exhaustibleReservation", "pooledReservation", "roomReservation", "serviceReservation" ],
+      "discriminator" : "discriminator",
+      "required" : [ "discriminator" ]
+    },
+    "ReservationViewBase" : {
+      "id" : "ReservationViewBase",
+      "properties" : {
+        "sysidReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "confirmationNumber" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sysidParentReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sysidDependentReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "reservationName" : {
+          "type" : "string"
+        },
+        "sysidEventType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidDurationType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidReservationState" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidPurposeType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "privateReservation" : {
+          "type" : "boolean"
+        },
+        "reservationComments" : {
+          "type" : "string"
+        },
+        "sysidResource" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "resourceName" : {
+          "type" : "string"
+        },
+        "sysidCategory" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "resourceCategoryName" : {
+          "type" : "string"
+        },
+        "sysidResourceType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "resourceTypeName" : {
+          "type" : "string"
+        },
+        "resourceImage" : {
+          "type" : "string"
+        },
+        "resourceThumbnail" : {
+          "type" : "string"
+        },
+        "setupMinutes" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "breakDownMinutes" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidCreator" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidOwner" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ownerFirstName" : {
+          "type" : "string"
+        },
+        "ownerMiddleInitial" : {
+          "type" : "string"
+        },
+        "ownerLastName" : {
+          "type" : "string"
+        },
+        "ownerPhone" : {
+          "type" : "string"
+        },
+        "resourceLocations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "resourceViewLocation"
+          }
+        },
+        "aqStartTime" : {
+          "type" : "aqDate"
+        },
+        "aqEndTime" : {
+          "type" : "aqDate"
+        },
+        "aqActiveStartTime" : {
+          "type" : "aqDate"
+        },
+        "aqActiveEndTime" : {
+          "type" : "aqDate"
+        },
+        "aqSetupTime" : {
+          "type" : "aqDate"
+        },
+        "aqBreakDownTime" : {
+          "type" : "aqDate"
+        },
+        "reservationResourceType" : {
+          "type" : "string",
+          "enum" : [ "ROOM", "EXHAUSTIBLE", "POOLED", "SERVICE" ]
+        },
+        "discriminator" : {
+          "type" : "string"
+        }
+      },
+      "subTypes" : [ "exhaustibleReservationView", "roomReservationView", "pooledReservationView", "serviceReservationView" ],
+      "discriminator" : "discriminator",
+      "required" : [ "discriminator" ]
+    },
+    "resourceViewLocation" : {
+      "id" : "resourceViewLocation",
+      "properties" : {
+        "sysidLocatorNode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidVenueNode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "venueName" : {
+          "type" : "string"
+        },
+        "locationName" : {
+          "type" : "string"
+        },
+        "address1" : {
+          "type" : "string"
+        },
+        "address2" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "stateProvince" : {
+          "type" : "string"
+        },
+        "postalCode" : {
+          "type" : "string"
+        },
+        "country" : {
+          "type" : "string"
+        }
+      }
+    },
+    "intArg" : {
+      "id" : "intArg",
+      "properties" : {
+        "key" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "serviceReservationView" : {
+      "id" : "serviceReservationView",
+      "properties" : {
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "deliveryLocation" : {
+          "type" : "string"
+        },
+        "specialInstructions" : {
+          "type" : "string"
+        }
+      }
+    },
+    "aqDate" : {
+      "id" : "aqDate",
+      "properties" : {
+        "year" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "month" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfMonth" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "minute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "tzIdValue" : {
+          "type" : "string"
+        },
+        "noEndDate" : {
+          "type" : "boolean"
+        },
+        "discriminator" : {
+          "type" : "string"
+        }
+      },
+      "subTypes" : [ "aqNoEndDate" ],
+      "discriminator" : "discriminator",
+      "required" : [ "discriminator" ]
+    },
+    "roomReservation" : {
+      "id" : "roomReservation",
+      "properties" : {
+        "numberOfAttendees" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidDependentReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "invitation" : {
+          "type" : "invitation"
+        },
+        "scheduledTasks" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "scheduledTask"
+          }
+        },
+        "checkInStatus" : {
+          "type" : "string",
+          "enum" : [ "CHECK_IN", "CHECK_IN_NO_ROLL", "CHECK_OUT", "NONE" ]
+        }
+      }
+    },
+    "pooledReservationView" : {
+      "id" : "pooledReservationView",
+      "properties" : {
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "deliveryLocation" : {
+          "type" : "string"
+        },
+        "specialInstructions" : {
+          "type" : "string"
+        }
+      }
+    },
+    "reservationRequest" : {
+      "id" : "reservationRequest",
+      "properties" : {
+        "sysidUserAlloc" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "event" : {
+          "type" : "ReservationGroup"
+        }
+      }
+    },
+    "roomReservationView" : {
+      "id" : "roomReservationView",
+      "properties" : {
+        "numberOfAttendees" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "capacity" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "reqCheckIn" : {
+          "type" : "boolean"
+        },
+        "checkInStatus" : {
+          "type" : "string",
+          "enum" : [ "CHECK_IN", "CHECK_IN_NO_ROLL", "CHECK_OUT", "NONE" ]
+        },
+        "aqLastCheckinTime" : {
+          "type" : "aqDate"
+        }
+      }
+    },
+    "invitation" : {
+      "id" : "invitation",
+      "properties" : {
+        "isBusy" : {
+          "type" : "boolean"
+        },
+        "isPrivate" : {
+          "type" : "boolean"
+        },
+        "reservationInvitees" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "invitee"
+          }
+        }
+      }
+    },
+    "costCalculationResult" : {
+      "id" : "costCalculationResult",
+      "properties" : {
+        "sysidCurrencyType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidCostUnitType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numberOfUnits" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "estimatedCost" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "exhaustibleReservation" : {
+      "id" : "exhaustibleReservation",
+      "properties" : {
+        "sysidDependentReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "locatorImage" : {
+      "id" : "locatorImage",
+      "properties" : {
+        "sysidLocatorImage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "imageSource" : {
+          "type" : "string"
+        },
+        "imageType" : {
+          "type" : "codeTableData"
+        }
+      }
+    },
+    "aqNoEndDate" : {
+      "id" : "aqNoEndDate",
+      "properties" : { }
+    },
+    "scheduledTask" : {
+      "id" : "scheduledTask",
+      "properties" : {
+        "toDoDate" : {
+          "type" : "aqDate"
+        },
+        "taskType" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "exhaustibleReservationView" : {
+      "id" : "exhaustibleReservationView",
+      "properties" : {
+        "waitlistable" : {
+          "type" : "boolean"
+        },
+        "locationMapImageLocators" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "imageLocatorData"
+          }
+        }
+      }
+    },
+    "invitee" : {
+      "id" : "invitee",
+      "properties" : {
+        "sysidReservationInvitee" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sysidHost" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "isOwner" : {
+          "type" : "boolean"
+        },
+        "roleId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        },
+        "middleInitial" : {
+          "type" : "string"
+        },
+        "phone" : {
+          "type" : "string"
+        },
+        "company" : {
+          "type" : "string"
+        },
+        "hostEmail" : {
+          "type" : "string"
+        },
+        "hostPhone" : {
+          "type" : "string"
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "external" : {
+          "type" : "boolean"
+        },
+        "visitor" : {
+          "type" : "boolean"
+        },
+        "vip" : {
+          "type" : "boolean"
+        },
+        "notes" : {
+          "type" : "string"
+        },
+        "pictureUrl" : {
+          "type" : "string"
+        },
+        "aqArrivalDate" : {
+          "type" : "aqDate"
+        },
+        "aqDepartureDate" : {
+          "type" : "aqDate"
+        },
+        "aqCheckInDate" : {
+          "type" : "aqDate"
+        },
+        "aqCheckOutDate" : {
+          "type" : "aqDate"
+        }
+      }
+    },
+    "ExceptionArgument" : {
+      "id" : "ExceptionArgument",
+      "properties" : {
+        "discriminator" : {
+          "type" : "string"
+        }
+      },
+      "subTypes" : [ "stringArg", "dateArg", "intArg", "intArg" ],
+      "discriminator" : "discriminator",
+      "required" : [ "discriminator" ]
+    },
+    "stringArg" : {
+      "id" : "stringArg",
+      "properties" : {
+        "key" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        }
+      }
+    },
+    "reservationConfirmation" : {
+      "id" : "reservationConfirmation",
+      "properties" : {
+        "confirmationNumber" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "pricing" : {
+      "id" : "pricing",
+      "properties" : {
+        "sysidResourcePricing" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidCurrencyType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidCostUnitType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "cost" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "defaultPrice" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "reservationStateHistory" : {
+      "id" : "reservationStateHistory",
+      "properties" : {
+        "sysidReservationActionType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidReservationStateType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidApplication" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidUserPerformer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "aqStateDate" : {
+          "type" : "aqDate"
+        }
+      }
+    }
+  }
+}

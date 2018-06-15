@@ -1,0 +1,1016 @@
+{
+  "apiVersion" : "1.0.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/aq-api",
+  "resourcePath" : "/forums",
+  "apis" : [ {
+    "path" : "/forums/accounts",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "addAccountToForum",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "forumAddAccount",
+        "description" : "{@link AddForumAccountData}",
+        "paramType" : "body",
+        "name" : "_addAccountData",
+        "required" : true
+      } ],
+      "summary" : "Add Account To Forum",
+      "notes" : "<p>Adds the account identified to the forum identified. This is used for <strong>shared</strong> Forums\n to add more than one account to the Forum. If the <strong>isOwner</strong> flag is set to TRUE, the\n Forum must not have a pre-existing owner.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>           <td>ALWAYS</td> </tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_FORUMS</a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must belong to the Account being added to the Forum or must be a System Administrator.</em></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('AddForumAccountData')\">Add Forum Account Data</a> value.</p>\n \n <p>This operation returns a HTTP 200 OK response upon success.</p>",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "OK"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the User does not have permissions to add an account to the forum or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Forum Not Found\n <p>If the Forum identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the forum cannot be found.</p>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Forum Data\n <p>If the Forum Account data provided is invalid, the following exceptions are returned:</p>\n \n <p><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if any data provided for the Forum is invalid.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/forums/accounts/public/{sysidAccount}",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "addAccountToPublicForums",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : "Integer SYSID of the Account to add to the Agilquest shared forum",
+        "paramType" : "path",
+        "name" : "sysidAccount",
+        "required" : true
+      } ],
+      "summary" : "Add Account",
+      "notes" : "<p>Adds an existing Account defined in its own Forum to the Agilquest shared forum.</p> \n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ACCOUNT</a></strong></td>           <td>ALWAYS</td> </tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_FORUMS</a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must belong to the Account being added to the Forum or must be a System Administrator.</em></p>\n \n <p>This operation requires no value to be POSTed within the body. The SYSID of the Account to add is included in the Path Parameter.</p>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "4"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the User does not have permissions to add an Account or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Forum Not Found\n <p>If the Forum identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the forum cannot be found.</p>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Forum Data\n <p>If the Forum Account data provided is invalid, the following exceptions are returned:</p>\n \n <p><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if any data provided for the Forum is invalid.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/forums/active/{sysidForum}",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "setActiveForum",
+      "type" : "userPublished",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : "Integer SYSID of the Forum that will be set as the User's active Forum.</p>",
+        "paramType" : "path",
+        "name" : "sysidForum",
+        "required" : true
+      } ],
+      "summary" : "Set Active Forum",
+      "notes" : "<p>Sets the active forum for the user identified by the authentication token to the forum identified by the given forum system ID.</p>\n \n <p><em>Note: If the requestor is the SystemAdmin, the the forum is switched with no pre-conditions.</em></p>\n \n <p><em>Note: If the requestor is not the SystemAdmin, the user's Account must be a member of the indicated Forum, and the forum must be active.</em></p>\n \n <p>This operation returns a HTTP 200 OK status on success.</p>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "0"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the User does not have permissions to set the forum active or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Forum Not Found\n <p>If the Forum identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the forum cannot be found.</p>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Forum Data\n <p>If the Forum Account data provided is invalid, the following exceptions are returned:</p>\n \n <p><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if any data provided for the Forum is invalid.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ]
+    } ]
+  }, {
+    "path" : "/forums/currency-types",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getCurrencyTypes",
+      "type" : "currencyTypeWrapper",
+      "summary" : "Get Currency Types",
+      "notes" : "<p>Get all currency types associated with the forum.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the requesting User does not have permissions to manage the User's account, or the User Authentication Token is invalid,\n the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/forums/system",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createForum",
+      "type" : "accountData",
+      "parameters" : [ {
+        "type" : "forumAccount",
+        "description" : "{@link CreateForumRequest}",
+        "paramType" : "body",
+        "name" : "_request",
+        "required" : true
+      } ],
+      "summary" : "Create Forum",
+      "notes" : "<p>Creates a new Forum, adding a new account if provided and initializing with default values if requested.</p>\n \n <p><em>This operation is intended for management of multiple forums used by multiple accounts. \n The requestor must be the SystemAdmin, or a AuthorizationException is thrown.</em></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('CreateForumAccountData')\"> Account Data</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('AccountData')\">Account Data</a> value of the Forum's owning Account.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the User does not have permissions to create a Forum or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Forum Data\n <p>If the Forum Account data provided is invalid, the following exceptions are returned:</p>\n \n <p><a href=\"javascript:openDataWindow('PasswordException')\">Password Exception</a> if the password provided for the Forum Account does not match password policies.</p>\n <p><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if any data provided for the Forum is invalid.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/forums/system/accounts/contexts",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "switchAdminContext",
+      "type" : "userPublished",
+      "parameters" : [ {
+        "type" : "switchContext",
+        "description" : "{@link SwitchContext}",
+        "paramType" : "body",
+        "name" : "_switchContext",
+        "required" : true
+      } ],
+      "summary" : "Switch Admin Context",
+      "notes" : "<p>Switches the Forum and Account that the user is currently accessing.</p> \n\n <p><em>Note: This is only accessible by the System Administrator</em></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('SwitchContext')\">Switch Context</a> value.</p>\n \n <p>This operation returns a HTTP 200 OK response on success.</p>",
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "OK"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the User does not have permissions to switch the Admin Context or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Forum or Account Not Found\n <p>If the Forum or Account identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Forum or Account cannot be found.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/forums/system/accounts/public",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createPublicAccount",
+      "type" : "publicAccount",
+      "parameters" : [ {
+        "type" : "publicAccount",
+        "description" : "{@link PublicAccount} describing the Account to add to the Public space.",
+        "paramType" : "body",
+        "name" : "_account",
+        "required" : true
+      } ],
+      "summary" : "Create Public Account",
+      "notes" : "<p>Creates a new Account in the special Agilquest shared forum. The Account is not\n a traditional Account in that it doesn't have it's own Forum  and is only defined\n in the Agilquest shared Forum.</p>\n \n <p>This operation requires a <strong>Public Account</strong> value with the following fields:</p>\n \n <table>\n  <tr><td><strong>Field Name</strong></td><td><strong>Requirement</strong></td><td><strong>Description</strong></td></tr>\n  <tr><td>name</td>         <td>REQUIRED</td><td>String name of the Account, used for display purposes.</td></tr>\n  <tr><td>login</td>        <td>REQUIRED</td><td>String unique login associated with the Account.</td></tr>\n  <tr><td>password</td>     <td>REQUIRED</td><td>String password associated with the Account login.</td></tr>\n  <tr><td>description</td>  <td>OPTIONAL</td><td>String display text describing the Account.</td></tr>\n </table>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('AccoundData')\">Account Data</a> value for the created Account.</p>",
+      "responseMessages" : [ {
+        "code" : 201,
+        "message" : "([created]) on successful creation of the Account."
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the User does not have permissions to create a public account or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Forum Not Found\n <p>If the Forum identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the forum cannot be found.</p>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Forum Data\n <p>If the Forum Account data provided is invalid, the following exceptions are returned:</p>\n \n <p><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if any data provided for the Forum is invalid.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/forums/system/bulk-import-forum",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "bulkImportForum",
+      "type" : "accountData",
+      "parameters" : [ {
+        "type" : "forumAccount",
+        "paramType" : "body",
+        "name" : "_request",
+        "required" : true
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/forums/system/shared",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createSharedForum",
+      "type" : "forum",
+      "parameters" : [ {
+        "type" : "forumAccount",
+        "description" : "{@link CreateSharedForumData} value",
+        "paramType" : "body",
+        "name" : "_data",
+        "required" : true
+      } ],
+      "summary" : "Create Shared Forum",
+      "notes" : "<p>This operation updates the Forum provided into a <strong>shared</strong> forum, meaning that\n more than one Account may have resources, users, etc., defined within the Forum.</p>\n \n <p><em>Note: The Forum to be shared must already be created using the <strong>Create Forum</strong> operation.</em></p>\n \n <p><em>This operation is intended for management of multiple forums used by multiple accounts. \n The requestor must be the SystemAdmin, or a AuthorizationException is thrown.</em></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('ForumData')\">Forum Data</a> value of the Forum that will be shared.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('ForumData')\">Forum Data</a> value of the Forum that will be shared.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the User does not have permissions to create a shared forum or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Forum Data\n <p>If the Forum Account data provided is invalid, the following exceptions are returned:</p>\n \n <p><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if any data provided for the Forum is invalid.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/forums/system/{sysidForum}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getForum",
+      "type" : "updateForum",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : "Integer SYSID of the Forum information to retrieve.",
+        "paramType" : "path",
+        "name" : "sysidForum",
+        "required" : true
+      } ],
+      "summary" : "Get Forum",
+      "notes" : "<p>Retrieves the forum data for the given Forum Sysid value. This describes the Forum and lists the \n Members of the Forum.</p>\n \n <p><em>This operation is intended for management of multiple forums used by multiple accounts. \n The requestor must be the SystemAdmin, or a AuthorizationException is thrown.</em></p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('UpdateForumData')\">Update Forum Data</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the User does not have permissions to request the Forum or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Forum Not Found\n <p>If the Forum identified by the given SYSID cannot be found, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the Forum identified cannot be found.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateForum",
+      "type" : "updateForum",
+      "parameters" : [ {
+        "type" : "updateForum",
+        "description" : "{@link UpdateForumData} value",
+        "paramType" : "body",
+        "name" : "_updateForumData",
+        "required" : true
+      } ],
+      "summary" : "Update Forum",
+      "notes" : "<p>Updates the identified forum with the given forum data value.</p>\n \n <p><em>This operation is intended for management of multiple forums used by multiple accounts. \n The requestor must be the SystemAdmin, or a AuthorizationException is thrown.</em></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('UpdateForumData')\"> Data</a> value.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('UpdateForumData')\"> Data</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the User does not have permissions to update a forum or the User Authentication Token\n is invalid, one of the following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Forum Not Found\n <p>If the Forum identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the forum cannot be found.</p>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Forum Data\n <p>If the Forum Account data provided is invalid, the following exceptions are returned:</p>\n \n <p><a href=\"javascript:openDataWindow('AccountForumException')\">Account Forum Exception</a> if any data provided for the Forum is invalid.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  } ],
+  "models" : {
+    "createAccountOwner" : {
+      "id" : "createAccountOwner",
+      "properties" : {
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    },
+    "myResources" : {
+      "id" : "myResources",
+      "properties" : {
+        "sysidMyRooms" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidResource" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "email-preference" : {
+      "id" : "email-preference",
+      "properties" : {
+        "sysidUserEmailPreference" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidEmailPreferenceType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sendEmail" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "userProfile" : {
+      "id" : "userProfile",
+      "properties" : {
+        "userId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "originalUser" : {
+          "type" : "boolean"
+        },
+        "privateProfile" : {
+          "type" : "boolean"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "middleInitial" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        },
+        "preferredName" : {
+          "type" : "string"
+        },
+        "comments" : {
+          "type" : "string"
+        },
+        "sysidLanguage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "address1" : {
+          "type" : "string"
+        },
+        "address2" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "stateProvince" : {
+          "type" : "string"
+        },
+        "postalCode" : {
+          "type" : "string"
+        },
+        "country" : {
+          "type" : "string"
+        },
+        "sysidDefaultResCategory" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidDefaultResType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "defaultChargeCode" : {
+          "type" : "string"
+        },
+        "calendarURL" : {
+          "type" : "string"
+        },
+        "userEmailPreferences" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "email-preference"
+          },
+          "uniqueItems" : true
+        },
+        "userImages" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "user-image"
+          }
+        },
+        "userContacts" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "contact"
+          },
+          "uniqueItems" : true
+        },
+        "myPeople" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "myPeople"
+          },
+          "uniqueItems" : true
+        },
+        "myRooms" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "myResources"
+          },
+          "uniqueItems" : true
+        },
+        "myDelegates" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "delegate"
+          },
+          "uniqueItems" : true
+        }
+      }
+    },
+    "delegate" : {
+      "id" : "delegate",
+      "properties" : {
+        "sysidDelegate" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidUserDelegate" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "auth-rule" : {
+      "id" : "auth-rule",
+      "properties" : {
+        "sysidAuthorizationRule" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "forumAccount" : {
+      "id" : "forumAccount",
+      "properties" : {
+        "forum" : {
+          "type" : "forum"
+        },
+        "addDefaultData" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "contact" : {
+      "id" : "contact",
+      "properties" : {
+        "sysidUserContacts" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidContactType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "value" : {
+          "type" : "string"
+        }
+      }
+    },
+    "member" : {
+      "id" : "member",
+      "properties" : {
+        "sysidForumMember" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "owner" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "currency" : {
+      "id" : "currency",
+      "properties" : {
+        "sysidCurrencyType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "code" : {
+          "type" : "string"
+        },
+        "symbol" : {
+          "type" : "string"
+        }
+      }
+    },
+    "attribute" : {
+      "id" : "attribute",
+      "properties" : {
+        "sysidUserAttributeValue" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidUserAttribute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "stringValue" : {
+          "type" : "string"
+        },
+        "numberValue" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "booleanValue" : {
+          "type" : "boolean"
+        },
+        "aqDateTimeValue" : {
+          "type" : "aqDate"
+        },
+        "sysidAttributeDataType" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "aqDate" : {
+      "id" : "aqDate",
+      "properties" : {
+        "year" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "month" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfMonth" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "minute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "tzIdValue" : {
+          "type" : "string"
+        },
+        "noEndDate" : {
+          "type" : "boolean"
+        },
+        "discriminator" : {
+          "type" : "string"
+        }
+      },
+      "subTypes" : [ "aqNoEndDate" ],
+      "discriminator" : "discriminator",
+      "required" : [ "discriminator" ]
+    },
+    "myPeople" : {
+      "id" : "myPeople",
+      "properties" : {
+        "sysidMyPeople" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidPerson" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "user-image" : {
+      "id" : "user-image",
+      "properties" : {
+        "sysidUserImage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "imageSource" : {
+          "type" : "string"
+        },
+        "thumbnailSource" : {
+          "type" : "string"
+        },
+        "defaultImage" : {
+          "type" : "boolean"
+        },
+        "height" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "width" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "displayOrder" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "aqNoEndDate" : {
+      "id" : "aqNoEndDate",
+      "properties" : { }
+    },
+    "currencyTypeWrapper" : {
+      "id" : "currencyTypeWrapper",
+      "properties" : {
+        "types" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "currency"
+          }
+        }
+      }
+    },
+    "accountData" : {
+      "id" : "accountData",
+      "properties" : {
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAccountType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "sysidHomeForum" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidOwnerUser" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "login" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "license" : {
+          "type" : "string"
+        },
+        "active" : {
+          "type" : "boolean"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "displayLinks" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "accountDisplayLink"
+          },
+          "uniqueItems" : true
+        },
+        "images" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "accountImage"
+          }
+        },
+        "accountType" : {
+          "type" : "string",
+          "enum" : [ "PUBLIC_PUBLISHER", "PRIVATE_BUSINESS" ]
+        }
+      }
+    },
+    "forumAddAccount" : {
+      "id" : "forumAddAccount",
+      "properties" : {
+        "sysidforum" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "owner" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "accountDisplayLink" : {
+      "id" : "accountDisplayLink",
+      "properties" : {
+        "sysidDisplayLink" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "display" : {
+          "type" : "boolean"
+        },
+        "external" : {
+          "type" : "boolean"
+        },
+        "targetURL" : {
+          "type" : "string"
+        },
+        "imageURL" : {
+          "type" : "string"
+        },
+        "languageTag" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "activationAqDate" : {
+          "type" : "aqDate"
+        },
+        "expirationAqDate" : {
+          "type" : "aqDate"
+        }
+      }
+    },
+    "forum" : {
+      "id" : "forum",
+      "properties" : {
+        "sysidForum" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "databaseName" : {
+          "type" : "string"
+        },
+        "schemaName" : {
+          "type" : "string"
+        },
+        "active" : {
+          "type" : "boolean"
+        },
+        "allowSelfRegistration" : {
+          "type" : "boolean"
+        },
+        "allowAnonymousBrowsing" : {
+          "type" : "boolean"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "forumMembers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "member"
+          },
+          "uniqueItems" : true
+        }
+      }
+    },
+    "userBusiness" : {
+      "id" : "userBusiness",
+      "properties" : {
+        "sysidRole" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "manualBumpable" : {
+          "type" : "boolean"
+        },
+        "bumpFreesLtr" : {
+          "type" : "boolean"
+        },
+        "autoBumpable" : {
+          "type" : "boolean"
+        },
+        "autoBumpFreesLtr" : {
+          "type" : "boolean"
+        },
+        "reservationSpendingLimit" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "workSpaceLimit" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maxFutureReservationDays" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "gapConflictingWorkspace" : {
+          "type" : "boolean"
+        },
+        "groupMemberships" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "alloc"
+          },
+          "uniqueItems" : true
+        },
+        "userAuthRules" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "auth-rule"
+          },
+          "uniqueItems" : true
+        },
+        "userAttributeValue" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "attribute"
+          },
+          "uniqueItems" : true
+        }
+      }
+    },
+    "userPublished" : {
+      "id" : "userPublished",
+      "properties" : {
+        "profile" : {
+          "type" : "userProfile"
+        },
+        "business" : {
+          "type" : "userBusiness"
+        }
+      }
+    },
+    "updateForum" : {
+      "id" : "updateForum",
+      "properties" : {
+        "sysidForum" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "active" : {
+          "type" : "boolean"
+        },
+        "allowSelfRegistration" : {
+          "type" : "boolean"
+        },
+        "allowAnonymousBrowsing" : {
+          "type" : "boolean"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "forumMembers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "member"
+          },
+          "uniqueItems" : true
+        }
+      }
+    },
+    "publicAccount" : {
+      "id" : "publicAccount",
+      "properties" : {
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "license" : {
+          "type" : "string"
+        },
+        "active" : {
+          "type" : "boolean"
+        },
+        "login" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "sysidUserOwner" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "accountOwner" : {
+          "type" : "createAccountOwner"
+        }
+      }
+    },
+    "accountImage" : {
+      "id" : "accountImage",
+      "properties" : {
+        "sysidAccountImage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "imageSource" : {
+          "type" : "string"
+        },
+        "thumbnailSource" : {
+          "type" : "string"
+        },
+        "defaultImage" : {
+          "type" : "boolean"
+        },
+        "height" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "width" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "displayOrder" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "alloc" : {
+      "id" : "alloc",
+      "properties" : {
+        "sysidUserGroupMember" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidUserGroup" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "switchContext" : {
+      "id" : "switchContext",
+      "properties" : { }
+    }
+  }
+}

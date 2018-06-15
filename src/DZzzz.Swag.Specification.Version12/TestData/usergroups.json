@@ -1,0 +1,594 @@
+{
+  "apiVersion" : "1.0.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/aq-api",
+  "resourcePath" : "/usergroups",
+  "apis" : [ {
+    "path" : "/usergroups",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "createUserGroup",
+      "type" : "userGroup",
+      "parameters" : [ {
+        "type" : "userGroup",
+        "description" : ": UserGroup object to create in the Agilquest.com system.",
+        "paramType" : "body",
+        "name" : "_userGroup",
+        "required" : true
+      } ],
+      "summary" : "Create User Group.",
+      "notes" : "<p>Creates a new User Group within the Agilquest.com System. User Groups are \n used to create Allocation Relationships with Assets stored in correlating\n Resource Groups. Multiple Users may be assigned to a User Group.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ALLOCATIONS</a></strong></td>                 <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must either be the SystemAdmin, or the user's HomeAccount must be the ForumOwner.</em></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('UserGroup')\">User Group</a> value.</p>\n \n <p></p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('UserGroup')\">User Group</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the user is not authenticated or does not have the required permissions to perform the operation, the \n following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Value Conflict\n <p>If the User Group provided does not have a unique name, or references an invalid user, the following exceptions may be returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the User Group name provided is already in use by another User Group.</li>\n  <li><a href=\"javascript:openDataWindow('UserGroupException')\">User Group Exception</a> if the User Group contains invalid information.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateUserGroup",
+      "type" : "userGroup",
+      "parameters" : [ {
+        "type" : "userGroup",
+        "description" : ": UserGroup object to update in the Agilquest.com system. The User Group object must have a valid <strong>sysidUserGroup</strong> value indicating the ID of the User Group being updated in the Agilquest.com system.",
+        "paramType" : "body",
+        "name" : "_userGroup",
+        "required" : true
+      } ],
+      "summary" : "Update User Group.",
+      "notes" : "<p>Updates an existing User Group within the Agilquest.com System. User Groups are \n used to create Allocation Relationships with Assets stored in correlating\n Resource Groups. Multiple Users may be assigned to a User Group.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ALLOCATIONS</a></strong></td>                 <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must either be the SystemAdmin, or the user's HomeAccount must be the ForumOwner.</em></p>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('UserGroup')\">User Group</a> value.</p>\n \n <p></p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('UserGroup')\">User Group</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the user is not authenticated or does not have the required permissions to perform the operation, the \n following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "User Group Not Found\n <p>If the User Group to update cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the User Group identified does not exist in the system.</li>"
+      }, {
+        "code" : 409,
+        "message" : "Value Conflict\n <p>If the User Group provided does not have a unique name, or references an invalid user, the following exceptions may be returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('DuplicateException')\">Duplicate Exception</a> if the User Group name provided is already in use by another User Group.</li>\n  <li><a href=\"javascript:openDataWindow('UserGroupException')\">User Group Exception</a> if the User Group contains invalid information.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "GET",
+      "nickname" : "getAllUserGroups",
+      "type" : "UserGroupWrapper",
+      "summary" : "Get All User Groups",
+      "notes" : "<p>Retrieves all User Group entities for the account with which the User making the request is associated.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ALLOCATIONS</a></strong></td> <td>ALWAYS</td> </tr>\n </table>\n \n <p>This operation returns a <strong>User Group Wrapper</strong> with the following elements:</p>\n \n <table>\n   <tr> <td><strong>Name</strong></td>  <td><strong>Data Type</strong></td>  <td><strong>Description</strong></td></tr>\n   <tr> <td>groups</td>             \n        <td>Array of <a href=\"javascript:openDataWindow('UserGroup')\">User Group</a> values</td>  \n        <td>The User Groups associated with the Forum that is the user's Home Account.</td>\n   </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the user is not authenticated or does not have the required permissions to perform the operation, the \n following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/usergroups/members/{sysidUser}",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "updateUserInGroups",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "path",
+        "name" : "sysidUser",
+        "required" : true
+      }, {
+        "type" : "UserGroupListWrapper",
+        "paramType" : "body",
+        "name" : "_userGroupsWrapper",
+        "required" : true
+      } ],
+      "summary" : "Update Resource Group Membership",
+      "notes" : "<p>This operation updates the POSTed collection of User Groups to include\n the identified User as a member. Those User Groups to which the User\n currently belongs which are not included in the POSTed collection of User Group\n SYSID values in which the User should belong will remove the User as a \n member.<p>\n \n <p>The User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.CREATE_USER</a></strong></td> <td>REQUIRED</td> </tr>\n </table>\n \n \n <p>This operation requires a <strong>User Groups List</strong> value which includes the following fields:</p>\n \n <table>\n   <tr> <td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Required</strong></td>  <td><strong>Description</strong></td></tr>\n   <tr> <td>userGroupSysids</td>             \n        <td>Array of Numeric SYSID values</td>  \n        <td>ALWAYS</td>\n        <td>Array of User Group SYSID integer values to which the identified User will be added.</td>\n   </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "4"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized Request\n <p>The application returns an Unauthorized Request response in the following cases:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "User Group Not Found\n <p>If the User Group requested cannot be found, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the User Group cannot be found.</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> if an returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/usergroups/views",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "searchUserGroups",
+      "type" : "UserGroupViewWrapper",
+      "parameters" : [ {
+        "type" : "userGroupsCriteria",
+        "description" : "{@link UserGroupsCriteria} value",
+        "paramType" : "body",
+        "name" : "_criteria",
+        "required" : true
+      } ],
+      "summary" : "Search User Groups",
+      "notes" : "<p>Searches for user groups which match the criteria values provided by the\n <a href=\"javascript:openDataWindow('UserGroupCriteria')\">User Group Criteria</a> value.</p>\n \n <p>The requesting User must have <strong>at least one of</strong> the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td>  <td><strong>Required</strong></td>  </tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_USERS</a></strong></td>         <td>CONDITIONAL</td>      </tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ALLOCATIONS</a></strong></td>   <td>CONDITIONAL</td>      </tr>\n </table>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('UserGroupCriteria')\">User Group Criteria</a> value.</p>\n \n <p>This operation returns a <strong>User Group View Wrapper</strong> value with the following fields:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td> </tr>\n  <tr><td>views</td> \n      <td>List of <a href=\"javascript:openDataWindow('UserGroupView')\">User Group View</a> values.</td>\n      <td>List of all User Groups within the Forum which match the given criteria.</td>\n  </tr>\n  <tr><td>hasAdditional</td> \n      <td>Boolean</td>\n      <td>Flag indicating whether there are additional results which may be requested that are not returned in this result set. Used for pagination.</td>\n  </tr>\n  <tr><td>nextStartRow</td> \n      <td>Number</td>\n      <td>Index value of the row at which next set of views can be retrieved. Used for pagination.</td>\n  </tr>\n  <tr><td>count</td> \n      <td>Number</td>\n      <td>The number of views returned with this result.</td>\n  </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the user is not authenticated or does not have the required permissions to perform the operation, the \n following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/usergroups/{sysidUserGroup}",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getUserGroup",
+      "type" : "userGroup",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : ": Int sysid of the User Group to retrieve.",
+        "paramType" : "path",
+        "name" : "sysidUserGroup",
+        "required" : true
+      } ],
+      "summary" : "Get User Group",
+      "notes" : "<p>Retrieves the User Group identified by the <strong>sysidUserGroup</strong> path parameter value.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ALLOCATIONS</a></strong></td>                 <td>ALWAYS</td> </tr>\n </table>\n \n <p><em>Note: The user must either be the SystemAdmin, or the user's HomeAccount must be the ForumOwner.</em></p>\n \n <p>This operation requires a <strong>Numeric User Group SYSID</strong> value passed as the path parameter for the operation.</p>\n \n <p>This operation returns a <a href=\"javascript:openDataWindow('UserGroup')\">User Group</a> value.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the user is not authenticated or does not have the required permissions to perform the operation, the \n following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "User Group Not Found\n <p>If the User Group to identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the User Group identified does not exist in the system.</li>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "DELETE",
+      "nickname" : "deleteUserGroup",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : ": Int sysid of the User Group to retrieve.",
+        "paramType" : "path",
+        "name" : "sysidUserGroup",
+        "required" : true
+      } ],
+      "summary" : "Delete User Group",
+      "notes" : "<p>Deletes the User Group identified by the <strong>sysidUserGroup</strong> ID value provided as the path parameter.\n If no such group is found, a NotFoundException is returned. Otherwise, the service returns a 204 OK response.</strong></p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ALLOCATIONS</a></strong></td> <td>ALWAYS</td> </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 204,
+        "message" : "indicating the User Group was successfully deleted."
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the user is not authenticated or does not have the required permissions to perform the operation, the \n following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "User Group Not Found\n <p>If the User Group to identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the User Group identified does not exist in the system.</li>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "addUsersToUserGroup",
+      "type" : "userGroup",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : ": Integer Sysid of the User Group to add Users to",
+        "paramType" : "path",
+        "name" : "sysidUserGroup",
+        "required" : true
+      }, {
+        "type" : "userViewCriteria",
+        "description" : ": User View Criteria containing the User Sysid values to add to the User Group",
+        "paramType" : "body",
+        "name" : "_criteria",
+        "required" : true
+      } ],
+      "summary" : "Add Users To User Group",
+      "notes" : "<p>This service end point adds the Users identified in the POSTed criteria object to the User Group identified\n by the Integer Sysid value of the path parameter.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ALLOCATIONS</a></strong></td> <td>ALWAYS</td> </tr>\n </table>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('UserViewCriteria')\">User View Criteria</a> value which identifies\n the Users which will be added to the specified User Group.</p>\n \n <p>This operation returns an updated <a href=\"javascript:openDataWindow('UserGroup')\">User Group</a> with the identified users added.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the user is not authenticated or does not have the required permissions to perform the operation, the \n following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "User Group Not Found\n <p>If the User Group to identified cannot be found in the system, the following exception is returned:</p>\n \n <p><a href=\"javascript:openDataWindow('NotFoundException')\">Not Found Exception</a> if the User Group identified does not exist in the system.</li>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "POST",
+      "nickname" : "removeUsersFromUserGroup",
+      "type" : "userGroup",
+      "parameters" : [ {
+        "type" : "integer",
+        "format" : "int32",
+        "description" : ": Integer Sysid of the User Group to remove Users from",
+        "paramType" : "path",
+        "name" : "sysidUserGroup",
+        "required" : true
+      }, {
+        "type" : "userViewCriteria",
+        "description" : ": User View Criteria containing the User Sysid values to remove from the User Group",
+        "paramType" : "body",
+        "name" : "_criteria",
+        "required" : true
+      } ],
+      "summary" : "Remove Users From User Group",
+      "notes" : "<p>This operation removes the Users identified in the POSTed criteria object from the User Group identified\n by the Integer sysid value of the path parameter.</p>\n \n <p></p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType')\">AuthRuleType.MANAGE_ALLOCATIONS</a></strong></td> <td>ALWAYS</td> </tr>\n </table>\n \n <p>This operation requires a <a href=\"javascript:openDataWindow('UserViewCriteria')\">User View Criteria</a> value which identifies\n the Users which will be removed from the specified User Group.</p>\n \n <p>This operation returns an updated <a href=\"javascript:openDataWindow('UserGroup')\">User Group</a> with the identified users removed.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n <p>If the user is not authenticated or does not have the required permissions to perform the operation, the \n following exceptions are returned:</p>\n \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "User Group Not Found\n <p>If the User Group to identified cannot be found in the system, the following exception is returned:</p>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  } ],
+  "models" : {
+    "groupAlloc" : {
+      "id" : "groupAlloc",
+      "properties" : {
+        "sysidUserGroupAllocation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidResourceGroup" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAllocationRelationshipType" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "customAttributeSearch" : {
+      "id" : "customAttributeSearch",
+      "properties" : {
+        "sysidAttribute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidDataType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "searchType" : {
+          "type" : "string",
+          "enum" : [ "LESS_THAN_OR_EQUAL", "EQUAL", "GREATER_THAN_OR_EQUAL" ]
+        },
+        "stringValue" : {
+          "type" : "string"
+        },
+        "numberValue" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "booleanValue" : {
+          "type" : "boolean"
+        },
+        "dateTimeValue" : {
+          "type" : "aqDate"
+        }
+      }
+    },
+    "aqDate" : {
+      "id" : "aqDate",
+      "properties" : {
+        "year" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "month" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfMonth" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "minute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "tzIdValue" : {
+          "type" : "string"
+        },
+        "noEndDate" : {
+          "type" : "boolean"
+        },
+        "discriminator" : {
+          "type" : "string"
+        }
+      },
+      "subTypes" : [ "aqNoEndDate" ],
+      "discriminator" : "discriminator",
+      "required" : [ "discriminator" ]
+    },
+    "UserGroupViewWrapper" : {
+      "id" : "UserGroupViewWrapper",
+      "properties" : {
+        "views" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "userGroupView"
+          }
+        },
+        "hasAdditional" : {
+          "type" : "boolean"
+        },
+        "nextStartRow" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "count" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "userViewCriteria" : {
+      "id" : "userViewCriteria",
+      "properties" : {
+        "maxRows" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "startRow" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidApplicationUsers" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidStatuses" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidRoles" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidBusinessUnits" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidDepartments" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidTitles" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidManagers" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidHomeLocations" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "homeLocationName" : {
+          "type" : "string"
+        },
+        "emailAddress" : {
+          "type" : "string"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        },
+        "includeLockedUser" : {
+          "type" : "boolean"
+        },
+        "exactMatch" : {
+          "type" : "boolean"
+        },
+        "matchAnyCustomAttribute" : {
+          "type" : "boolean"
+        },
+        "forManagement" : {
+          "type" : "boolean"
+        },
+        "customAttribs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "customAttributeSearch"
+          }
+        },
+        "sortAscending" : {
+          "type" : "boolean"
+        },
+        "sortColumn" : {
+          "type" : "string",
+          "enum" : [ "FIRST_NAME", "LAST_NAME", "EMAIL", "PHONE", "CITY", "ROLE", "HOME_LOCATION" ]
+        }
+      }
+    },
+    "UserGroupListWrapper" : {
+      "id" : "UserGroupListWrapper",
+      "properties" : {
+        "userGroupSysids" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    },
+    "userGroupView" : {
+      "id" : "userGroupView",
+      "properties" : {
+        "sysidUserGroup" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "userMember" : {
+      "id" : "userMember",
+      "properties" : {
+        "sysidUserGroupMember" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidApplicationUser" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "UserGroupWrapper" : {
+      "id" : "UserGroupWrapper",
+      "properties" : {
+        "groups" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "userGroup"
+          }
+        }
+      }
+    },
+    "userGroupsCriteria" : {
+      "id" : "userGroupsCriteria",
+      "properties" : {
+        "maxRows" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "startRow" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "groupName" : {
+          "type" : "string"
+        },
+        "sysidUsers" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidUserGroups" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sysidHomeLocations" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sortAscending" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "aqNoEndDate" : {
+      "id" : "aqNoEndDate",
+      "properties" : { }
+    },
+    "userGroup" : {
+      "id" : "userGroup",
+      "properties" : {
+        "sysidUserGroup" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "groupMembers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "userMember"
+          },
+          "uniqueItems" : true
+        },
+        "resourceAllocations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "groupAlloc"
+          },
+          "uniqueItems" : true
+        }
+      }
+    }
+  }
+}

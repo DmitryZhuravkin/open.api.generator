@@ -1,0 +1,388 @@
+{
+  "apiVersion" : "1.0.0",
+  "swaggerVersion" : "1.2",
+  "basePath" : "/aq-api",
+  "resourcePath" : "/properties",
+  "apis" : [ {
+    "path" : "/properties",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getForumAccountPropertiesForManagement",
+      "type" : "propertyDataWrapper",
+      "parameters" : [ {
+        "type" : "forumPropertiesRequest",
+        "description" : ": {@link ForumPropertiesRequest}",
+        "paramType" : "body",
+        "name" : "_request",
+        "required" : true
+      } ],
+      "summary" : "Get Forum Properties",
+      "notes" : "<p>Retrieves all properties of the Forum which is the user's current Forum. Each property represents a configuration\n of the System specific to an Account and Forum associated with the authenticated User. The authenticated User\n must have the appropriate System Management rights to retrieve the list of management properties.</p>\n \n <p>The operation requires a <strong><a href=\"javascript:openDataWindow('ForumPropertiesRequest')\">ForumPropertiesRequest</a></strong> value.</p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"javascript:openDataWindow('AuthRuleType');\">AuthRuleType.MANAGE_SYSTEM</a></strong></td><td>ALWAYS</td> </tr>\n </table>\n \n <p></p>\n \n <p>The service returns a <strong>Property Data Wrapper</strong> argument with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr><td>Properties</td>             \n      <td><a href=\"javascript:openDataWindow('ForumPropertyData');\">Property Data</a> List</td> \n      <td>List of Property Data elements for the User's Account and the current Forum context.</td>\n  </tr>\n </table>\n \n <p></p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the User submitting the request is not authenticated or is not\n   authorized to view the management properties, one of the following exceptions\n   will be returned:</p>\n   \n <ul>\n  <li><a href=\"javascript:openDataWindow('AuthenticationException')\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token</li>\n  <li><a href=\"javascript:openDataWindow('AuthorizationException')\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"javascript:openDataWindow('SystemException')\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateForumProperties",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "propertyDataWrapper",
+        "description" : ": Array of Property Data values to update in the Agilquest.com System.",
+        "paramType" : "body",
+        "name" : "_properties",
+        "required" : true
+      } ],
+      "summary" : "Update Forum Account Properties",
+      "notes" : "<p>Updates the values of the provided management properties in the System. The Authenticated User\n must have the appropriate System Management rights to perform the operation. Properties are updated by \n providing the Property Data value representing the property to be updated along with the String value \n that will be the new property value.</p>\n \n <p>All properties are updated as a set. If any pre-existing Property Data values exist for this Account and Forum,\n any new Property Data elements are added to the existing set of properties through the <strong>\n </strong> operation. Attempting to POST new properties to an existing set of\n properties will fail.</p>\n \n <p></p>\n \n <p>This operation takes a <strong>Property Data Wrapper</strong> argument with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Required</strong></td><td><strong>Description</strong></td></tr>\n  <tr><td>properties</td>             \n      <td><a href=\"/docs/data/data.html?name=ForumPropertyData\" target=\"_blank\">Property Data</a> \n      <td>REQUIRED</td>  \n      <td>List of Property Data elements to update or create within the System.</td>\n  </tr>\n </table>\n \n <p></p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"/docs/data/data.html?name=AuthRuleType\" target=\"_blank\">AuthRuleType.MANAGE_SYSTEM </a></strong></td>           <td>ALWAYS</td> </tr>\n </table>\n \n <p></p>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "4"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized User\n \n <p>If the User submitting the request is not authenticated or is not\n   authorized to manage the system properties, one of the following exceptions\n   will be returned:</p>\n   \n <ul>\n  <li><a href=\"/docs/data/data.html?name=AuthenticationException\" target=\"_blank\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"/docs/data/data.html?name=AuthorizationException\" target=\"_blank\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 409,
+        "message" : "Invalid Property Data Values\n <p>If the Property Data values are NULL or do not validate, the following exception is returned:</p>\n \n  <ul>\n    <li><a href=\"/docs/data/data.html?name=RequiredDataException\" target=\"_blank\">Required Data Exception</a> if the values provided are NULL or invalid.</li>\n  </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"/docs/data/data.html?name=SystemException\" target=\"_blank\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/properties/application-properties",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getApplicationProperties",
+      "type" : "propertiesWrapper",
+      "summary" : "Get Application Properties.",
+      "notes" : "<p>Retrieves the application properties for a specific application that exists in an Account's context. Application\n properties define specific behavioral characteristics of the System for the Account identified in the \n application authentication token.</p>\n \n <p></p>\n \n <p>This operation returns a <strong>Properties Wrapper</strong> with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr><td>mappings</td>             \n      <td><a href=\"/docs/data/data.html?name=PropertyMapping\" target=\"_blank\">Property Mapping</a> \n      <td>List of Property Mapping elements. Each mapping is a key/value pair.</td>\n  </tr>\n </table>\n \n <p></p>\n \n <p>All application properties are returned as an array of key value pairs.</p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Access\n <p>If the Application submitting the request is not authenticated or is not\n   recognized, the following exception is returned:</p>\n   \n <ul>\n  <li><a href=\"/docs/data/data.html?name=AuthenticationException\" target=\"_blank\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Property Not Found\n \n <p>If no application properties exist for the Account associated with the\n Application Authentication Token, the following exception is returned:</p>\n  \n  <ul>\n    <li><a href=\"/docs/data/data.html?name=NotFoundException\" target=\"_blank\">Not Found Exception</a> if the properties do not exist.</li>\n  </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"/docs/data/data.html?name=SystemException\" target=\"_blank\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateApplicationProperties",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "applicationPropertiesUpdate",
+        "description" : ": {@link ApplicationPropertiesUpdate}",
+        "paramType" : "body",
+        "name" : "_update",
+        "required" : true
+      } ],
+      "summary" : "Update Application Properties",
+      "notes" : "<p>Updates the existing store of application properties for the current Application and Account associated\n with the User Authentication Token. As Application Properties do not drive application behavior,\n they may be added or removed as needed, unlike System or Forum properties, which may only have\n the value modified for a defined Property Key.</p>\n \n <p>The Properties provided in the Application Properties Update object PUT to this end point will be used to\n update the matching properties for the current Account and Application in the System. The Application\n Properties Update object includes the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Required</strong></td><td><strong>Description</strong></td></tr>\n  <tr><td>properties</td>             \n      <td><a href=\"/docs/data/data.html?name=ApplicationPropertyData\" target=\"_blank\">Application Property Data</a> \n      <td>REQUIRED</td>  \n      <td>List of Application Property Data elements to update or create within the System.</td>\n  </tr>\n  <tr>\n    <td>replaceAll</td>\n    <td>Boolean</td>     \n    <td>REQUIRED</td>   \n    <td>Boolean flag indicating whether pre-existing properties not included in the provided list of Application Property Data values should be removed. A value of <strong>true</strong> will remove all properties, leaving only those properties explicitly contained in this update object. If the value is false, those properties that have a match in the original set will be replaced. New property entries will be created for those properties which are not pre-existing.</td><\n  </tr>\n </table>\n \n <p>The requesting User must either be the SystemAdmin, or the user's HomeAccount must match\n the SYSID_Account of the Properties. The User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"/docs/data/data.html?name=AuthRuleType\" target=\"_blank\">AuthRuleType.MANAGE_SYSTEM</a></strong></td>                 <td>ALWAYS</td> </tr>\n </table>\n \n <p></p>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "4"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized Access\n \n <p>If the User submitting the request is not authenticated or is not\n   authorized to manage the system properties, one of the following exceptions\n   will be returned:</p>\n   \n <ul>\n  <li><a href=\"/docs/data/data.html?name=AuthenticationException\" target=\"_blank\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"/docs/data/data.html?name=AuthorizationException\" target=\"_blank\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Application or Account Not Found\n \n <p>If the Application Properties associated with the User's Account do not exist, the following \n exception information is returned:</p>\n \n <ul>\n  <li><a href=\"/docs/data/data.html?name=NotFoundException\" target=\"_blank\">Not Found Exception</a> if the properties do not exist.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"/docs/data/data.html?name=SystemException\" target=\"_blank\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "POST",
+      "nickname" : "createApplicationProperties",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "applicationPropertyDataWrapper",
+        "description" : ": List<{@link ApplicationPropertiesUpdate}>",
+        "paramType" : "body",
+        "name" : "_properties",
+        "required" : true
+      } ],
+      "summary" : "Create Application Properties",
+      "notes" : "<p>Create new Application Property values for the current Application and Account associated with\n the current user's Authentication Token. As Application Properties do not drive application behavior,\n they may be added or removed as needed, unlike System or Forum properties, which may only have\n the value modified for a defined Property Key.</p>\n \n <p><em>Application Properties are created or updated as Sets. If Application Properties already exist in the System,\n any attempts to create new Application Properties via this operation will fail. New application property entries \n can be added via the <strong>Update Application Properties</strong> operation.</em></p>\n \n <p>The Properties provided in the Application Properties object POSTed to this end point will be used to\n create matching properties for the current Account and Application in the System. The Application\n Properties object includes the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Required</strong></td><td><strong>Description</strong></td></tr>\n  <tr><td>properties</td>             \n      <td><a href=\"/docs/data/data.html?name=ApplicationPropertyData\" target=\"_blank\">Application Property Data</a> \n      <td>REQUIRED</td>  \n      <td>List of Application Property Data elements to create within the System.</td>\n  </tr>\n </table>\n \n <p>The requesting User must either be the SystemAdmin, or the user's HomeAccount must match\n the SYSID_Account of the Properties. The User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"/docs/data/data.html?name=AuthRuleType\" target=\"_blank\">AuthRuleType.MANAGE_SYSTEM</a></strong></td>                 <td>ALWAYS</td> </tr>\n </table>\n \n <p></p>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "4"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized Access\n \n <p>If the User submitting the request is not authenticated or is not\n   authorized to manage the system properties, one of the following exceptions\n   will be returned:</p>\n   \n <ul>\n  <li><a href=\"/docs/data/data.html?name=AuthenticationException\" target=\"_blank\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"/docs/data/data.html?name=AuthorizationException\" target=\"_blank\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Application or Account Not Found\n \n <p>If the Application or Account associated with the User authentication token do not exist, the following \n exception information is returned:</p>\n \n <ul>\n  <li><a href=\"/docs/data/data.html?name=NotFoundException\" target=\"_blank\">Not Found Exception</a> if the Account or Application do not exist.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"/docs/data/data.html?name=SystemException\" target=\"_blank\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/properties/system/application-properties",
+    "operations" : [ {
+      "method" : "POST",
+      "nickname" : "getSystemApplicationProperties",
+      "type" : "applicationPropertyDataWrapper",
+      "parameters" : [ {
+        "type" : "applicationPropertiesRequest",
+        "description" : ": {@link ApplicationPropertiesRequest}",
+        "paramType" : "body",
+        "name" : "_request",
+        "required" : true
+      } ],
+      "summary" : "Request Application Properties for System Administration",
+      "notes" : "<p>Retrieves an array of <strong>Application Property Data</strong> values associated with the provided\n SYSID_Application and SYSID_Account information.</p>\n \n <p><em>Note: This call is intended for System Administrative purposes only and unavailable to Accounts not directly owned by the AgilQuest Corporation.</em></p>\n \n <p>The requesting User must have the following rights to perform this task:</p>\n \n <table>\n  <tr><td><strong>Rights</strong></td><td><strong>Required</strong></td></tr>\n  <tr><td><strong><a href=\"/docs/data/data.html?name=AuthRuleType\" target=\"_blank\">AuthRuleType.MANAGE_SYSTEM</a></strong></td>                 <td>ALWAYS</td> </tr>\n </table>\n \n <p></p>\n \n <p>This operation returns an <strong>Application Properties Data Wrapper</strong> with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td>  <td><strong>Data Type</strong></td> <td><strong>Description</strong></td></tr>\n  <tr><td>appProperties</td>             \n      <td><a href=\"/docs/data/data.html?name=ApplicationPropertyData\" target=\"_blank\">Application Property Data</a> \n      <td>List of Application Property Data elements.</td>\n  </tr>\n </table>\n \n <p></p>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Access\n \n <p>If the User submitting the request is not authenticated or is not\n   authorized to manage the system properties, one of the following exceptions\n   will be returned:</p>\n   \n <ul>\n  <li><a href=\"/docs/data/data.html?name=AuthenticationException\" target=\"_blank\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"/docs/data/data.html?name=AuthorizationException\" target=\"_blank\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 404,
+        "message" : "Property Not Found\n \n <p>If no application properties exist for the System, the following exception is returned:</p>\n  \n  <ul>\n    <li><a href=\"/docs/data/data.html?name=NotFoundException\" target=\"_blank\">Not Found Exception</a> if the properties do not exist.</li>\n  </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"/docs/data/data.html?name=SystemException\" target=\"_blank\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    } ]
+  }, {
+    "path" : "/properties/system/properties",
+    "operations" : [ {
+      "method" : "GET",
+      "nickname" : "getSystemProperties",
+      "type" : "systemPropertyDataWrapper",
+      "summary" : "Get System Management Properties",
+      "notes" : "<p>Retrieves the collection of <strong>System Property Data</strong> values defined within the System.</p>\n \n <p><em>Note: This call is intended for System Administrative purposes only and unavailable to Accounts not directly owned by the AgilQuest Corporation.</em></p>\n \n <p>This operation return a <strong>System Property Data Wrapper</strong> object with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td><td><strong>Data Type</strong></td><td><strong>Description</strong></td></tr>\n  <tr><td>properties</td>\n      <td><a href=\"/docs/data/data.html?name=SystemPropertyData\" target=\"_blank\">System Property Data</a>     \n      <td>Array of <strong>System Property Data</strong> values to use to update pre-existing System Property Data values or create new values in the existing set.</td>\n  </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 401,
+        "message" : "Unauthorized Access\n \n <p>If the User submitting the request is not authenticated or is not\n   authorized to manage the system properties, one of the following exceptions\n   will be returned:</p>\n   \n <ul>\n  <li><a href=\"/docs/data/data.html?name=AuthenticationException\" target=\"_blank\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"/docs/data/data.html?name=AuthorizationException\" target=\"_blank\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"/docs/data/data.html?name=SystemException\" target=\"_blank\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "produces" : [ "application/xml", "application/json" ]
+    }, {
+      "method" : "PUT",
+      "nickname" : "updateSystemProperties",
+      "type" : "Response",
+      "parameters" : [ {
+        "type" : "systemPropertyDataWrapper",
+        "description" : ": {@link SystemPropertyDataWrapper} including array of System Property Data values to update.",
+        "paramType" : "body",
+        "name" : "_modProps",
+        "required" : true
+      } ],
+      "summary" : "Update System Properties",
+      "notes" : "<p>Updates pre-exisitng System Property Data values in the System.</p>\n \n <p><em>Note: This call is intended for System Administrative purposes only and unavailable to Accounts not directly owned by the AgilQuest Corporation.</em></p>\n \n <p>This operation takes a <strong>System Property Data Wrapper</strong> argument with the following attributes:</p>\n \n <table>\n  <tr><td><strong>Name</strong></td><td><strong>Data Type</strong></td><td><strong>Required</strong></td><td><strong>Description</strong></td></tr>\n  <tr><td>properties</td>\n      <td><a href=\"/docs/data/data.html?name=SystemPropertyData\" target=\"_blank\">System Property Data</a>     \n      <td>REQUIRED</td>   \n      <td>Array of <strong>System Property Data</strong> values to use to update pre-existing System Property Data values or create new values in the existing set.</td>\n  </tr>\n </table>",
+      "responseMessages" : [ {
+        "code" : 20,
+        "message" : "4"
+      }, {
+        "code" : 401,
+        "message" : "Unauthorized Access\n \n <p>If the User submitting the request is not authenticated or is not\n   authorized to manage the system properties, one of the following exceptions\n   will be returned:</p>\n   \n <ul>\n  <li><a href=\"/docs/data/data.html?name=AuthenticationException\" target=\"_blank\">Authentication Exception</a> if the requestor cannot be authenticated using the provided Authentication token.</li>\n  <li><a href=\"/docs/data/data.html?name=AuthorizationException\" target=\"_blank\">Authorization Exception</a> if the requestor identified by the Authorization token is not authorized to perform this action.</li>\n </ul>"
+      }, {
+        "code" : 500,
+        "message" : "Unrecoverable Error\n <p>A <a href=\"/docs/data/data.html?name=SystemException\" target=\"_blank\">System Exception</a> is returned if the operation has caused an unrecoverable state.</p>"
+      } ],
+      "consumes" : [ "application/xml", "application/json" ]
+    } ]
+  } ],
+  "models" : {
+    "forumPropertiesRequest" : {
+      "id" : "forumPropertiesRequest",
+      "properties" : {
+        "sysidForum" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "applicationPropertiesRequest" : {
+      "id" : "applicationPropertiesRequest",
+      "properties" : {
+        "sysidApplication" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "systemPropertyDataWrapper" : {
+      "id" : "systemPropertyDataWrapper",
+      "properties" : {
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "systemProperty"
+          }
+        }
+      }
+    },
+    "systemProperty" : {
+      "id" : "systemProperty",
+      "properties" : {
+        "propsKey" : {
+          "type" : "string"
+        },
+        "keyValue" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "comment" : {
+          "type" : "string"
+        },
+        "sysidAttributeDataType" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "propertyDataWrapper" : {
+      "id" : "propertyDataWrapper",
+      "properties" : {
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "property"
+          }
+        }
+      }
+    },
+    "applicationPropertiesUpdate" : {
+      "id" : "applicationPropertiesUpdate",
+      "properties" : {
+        "appProperties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "applicationProperty"
+          }
+        },
+        "replaceAll" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "applicationPropertyDataWrapper" : {
+      "id" : "applicationPropertyDataWrapper",
+      "properties" : {
+        "appProperties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "applicationProperty"
+          }
+        }
+      }
+    },
+    "propertiesWrapper" : {
+      "id" : "propertiesWrapper",
+      "properties" : {
+        "mappings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "PropertyMapping"
+          }
+        }
+      }
+    },
+    "property" : {
+      "id" : "property",
+      "properties" : {
+        "id" : {
+          "type" : "propertyId"
+        },
+        "keyValue" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "comment" : {
+          "type" : "string"
+        },
+        "sysidAttributeDataType" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "PropertyMapping" : {
+      "id" : "PropertyMapping",
+      "properties" : {
+        "key" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        }
+      }
+    },
+    "applicationPropertyId" : {
+      "id" : "applicationPropertyId",
+      "properties" : {
+        "propsKey" : {
+          "type" : "string"
+        },
+        "sysidApplication" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "applicationProperty" : {
+      "id" : "applicationProperty",
+      "properties" : {
+        "id" : {
+          "type" : "applicationPropertyId"
+        },
+        "keyValue" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "comment" : {
+          "type" : "string"
+        },
+        "sysidAttributeDataType" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "propertyId" : {
+      "id" : "propertyId",
+      "properties" : {
+        "propsKey" : {
+          "type" : "string"
+        },
+        "sysidAccount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    }
+  }
+}
