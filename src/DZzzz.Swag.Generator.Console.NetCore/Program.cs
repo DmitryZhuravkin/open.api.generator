@@ -1,4 +1,7 @@
-﻿using DZzzz.Swag.Specification.Version12;
+﻿using DZzzz.Swag.CodeGeneration.CSharp;
+using DZzzz.Swag.Generator.Core.Model;
+using DZzzz.Swag.Specification.Base;
+using DZzzz.Swag.Specification.Version12;
 
 namespace DZzzz.Swag.Generator.Console.NetCore
 {
@@ -6,12 +9,22 @@ namespace DZzzz.Swag.Generator.Console.NetCore
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
+            Version12SpecificationProvider provider = new Version12SpecificationProvider(new SwagSpecificationContext()
+            {
+                Url = "http://209.201.33.16:8080/docs/aq-api/apidocs/service.json",
+                Format = "json"
+            });
 
-            Version12SpecificationProvider provider = new Version12SpecificationProvider();
+            GenerationContext context = provider.GetSpecificationAsync().Result;
 
+            CSharpLanguageCodeGenerator codeGenerator = new CSharpLanguageCodeGenerator(new CSharpLanguageSettings
+            {
+                OutputFolder = @"e:\temp\AgilQuest.Phoenix\",
+                OutputProjectName = "AgilQuest.Phoenix",
+                RepositoryFileNamePrefix = "Phoenix"
+            });
 
-
+            codeGenerator.Generate(context);
 
             System.Console.ReadKey(true);
         }

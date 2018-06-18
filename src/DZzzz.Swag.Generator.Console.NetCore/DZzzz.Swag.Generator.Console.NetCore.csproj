@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DZzzz.Swag.CodeGeneration.CSharp\DZzzz.Swag.CodeGeneration.CSharp.csproj" />
     <ProjectReference Include="..\DZzzz.Swag.Specification.Version12\DZzzz.Swag.Specification.Version12.csproj" />
   </ItemGroup>
 

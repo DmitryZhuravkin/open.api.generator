@@ -17,17 +17,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGeneration", "CodeGener
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZzzz.Swag.Generator.Console.NetCore", "DZzzz.Swag.Generator.Console.NetCore\DZzzz.Swag.Generator.Console.NetCore.csproj", "{92E0A496-0506-4755-AB3E-30FEC91BF7D8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5C50D7F3-205C-4636-BBB9-8418B40496A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZzzz.Swag.Specification.Version12", "DZzzz.Swag.Specification.Version12\DZzzz.Swag.Specification.Version12.csproj", "{1570D73E-79E1-4C06-8AC7-A2DBE5B75A33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.Swag.Specification.Version12", "DZzzz.Swag.Specification.Version12\DZzzz.Swag.Specification.Version12.csproj", "{1570D73E-79E1-4C06-8AC7-A2DBE5B75A33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZzzz.Swag.Specification.Version20", "DZzzz.Swag.Specification.Version20\DZzzz.Swag.Specification.Version20.csproj", "{D1A29E57-BCE2-4EF3-B97A-D5891647F51F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.Swag.Specification.Version20", "DZzzz.Swag.Specification.Version20\DZzzz.Swag.Specification.Version20.csproj", "{D1A29E57-BCE2-4EF3-B97A-D5891647F51F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.Swag.CodeGeneration.CSharp", "DZzzz.Swag.CodeGeneration.CSharp\DZzzz.Swag.CodeGeneration.CSharp.csproj", "{6BE3B5A1-CC45-4E2A-923A-E3C1CBF8DE29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZzzz.Swag.CodeGeneration.CSharp", "DZzzz.Swag.CodeGeneration.CSharp\DZzzz.Swag.CodeGeneration.CSharp.csproj", "{6BE3B5A1-CC45-4E2A-923A-E3C1CBF8DE29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{FF34FB88-C0A7-40AF-AFFF-0EE4B79AECF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DZzzz.JsonSchemaToCSharp.Tool", "DZzzz.JsonSchemaToCSharp.Tool\DZzzz.JsonSchemaToCSharp.Tool.csproj", "{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZzzz.JsonSchemaToCSharp.Tool", "DZzzz.JsonSchemaToCSharp.Tool\DZzzz.JsonSchemaToCSharp.Tool.csproj", "{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZzzz.Swag.Generator.Infrastructure", "DZzzz.Swag.Generator.Infrastructure\DZzzz.Swag.Generator.Infrastructure.csproj", "{5293163D-7499-4604-85F5-0167094B7515}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DZzzz.Swag.Specification.Base", "DZzzz.Swag.Specification.Base\DZzzz.Swag.Specification.Base.csproj", "{73639277-2BF1-4DBD-8FA2-2D0254315A2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,14 @@ Global
 		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5293163D-7499-4604-85F5-0167094B7515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5293163D-7499-4604-85F5-0167094B7515}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5293163D-7499-4604-85F5-0167094B7515}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5293163D-7499-4604-85F5-0167094B7515}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73639277-2BF1-4DBD-8FA2-2D0254315A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73639277-2BF1-4DBD-8FA2-2D0254315A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73639277-2BF1-4DBD-8FA2-2D0254315A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73639277-2BF1-4DBD-8FA2-2D0254315A2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +87,8 @@ Global
 		{D1A29E57-BCE2-4EF3-B97A-D5891647F51F} = {DF491799-6FB3-4FD1-AB9F-432A519257AB}
 		{6BE3B5A1-CC45-4E2A-923A-E3C1CBF8DE29} = {05A48EB4-83BE-4466-84B9-9263DC137B17}
 		{EDE43FE7-3ACD-4E6D-AECB-D97DB1104107} = {FF34FB88-C0A7-40AF-AFFF-0EE4B79AECF9}
+		{5293163D-7499-4604-85F5-0167094B7515} = {EE743D81-BAFD-4AFD-96E4-C093128C4335}
+		{73639277-2BF1-4DBD-8FA2-2D0254315A2E} = {DF491799-6FB3-4FD1-AB9F-432A519257AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {280C7B18-5687-4E71-AFEB-51AE41EB4956}

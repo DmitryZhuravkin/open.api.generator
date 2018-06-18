@@ -4,1244 +4,266 @@
 // </auto-generated>
 //----------------------
 
-namespace MyNamespace
+namespace DZzzz.Swag.Specification.Version12
 {
 #pragma warning disable // Disable all warnings
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class ApiObject : System.ComponentModel.INotifyPropertyChanged
+    public partial class ApiObject
     {
-        private string _path;
-        private string _description;
-        private System.Collections.ObjectModel.ObservableCollection<OperationObject> _operations = new System.Collections.ObjectModel.ObservableCollection<OperationObject>();
-
-        [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [System.ComponentModel.DataAnnotations.RegularExpression(@"^/")]
-        public string Path
-        {
-            get { return _path; }
-            set
-            {
-                if (_path != value)
-                {
-                    _path = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Path { get; set; }
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                if (_description != value)
-                {
-                    _description = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Description { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("operations", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.ObjectModel.ObservableCollection<OperationObject> Operations
-        {
-            get { return _operations; }
-            set
-            {
-                if (_operations != value)
-                {
-                    _operations = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("operations", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<OperationObject> Operations { get; set; } = new System.Collections.Generic.List<OperationObject>();
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static ApiObject FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ApiObject>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class ItemsObject : System.ComponentModel.INotifyPropertyChanged
+    public partial class ItemsObject
     {
-
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static ItemsObject FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ItemsObject>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     /// <summary>Data type fields (section 4.3.3)</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class DataTypeBase : System.ComponentModel.INotifyPropertyChanged
+    public partial class DataTypeBase
     {
-        private string _type;
-        private string ___referencePath;
-        private string _format;
-        private object _defaultValue;
-        private System.Collections.ObjectModel.ObservableCollection<string> _enum = new System.Collections.ObjectModel.ObservableCollection<string>();
-        private string _minimum;
-        private string _maximum;
-        private ItemsObject _items;
-        private bool _uniqueItems;
-
         [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Type
-        {
-            get { return _type; }
-            set
-            {
-                if (_type != value)
-                {
-                    _type = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Type { get; set; }
 
         [Newtonsoft.Json.JsonProperty("__referencePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string __referencePath
-        {
-            get { return ___referencePath; }
-            set
-            {
-                if (___referencePath != value)
-                {
-                    ___referencePath = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string __referencePath { get; set; }
 
         [Newtonsoft.Json.JsonProperty("format", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Format
-        {
-            get { return _format; }
-            set
-            {
-                if (_format != value)
-                {
-                    _format = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Format { get; set; }
 
         [Newtonsoft.Json.JsonProperty("defaultValue", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object DefaultValue
-        {
-            get { return _defaultValue; }
-            set
-            {
-                if (_defaultValue != value)
-                {
-                    _defaultValue = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public object DefaultValue { get; set; }
 
         [Newtonsoft.Json.JsonProperty("enum", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> Enum
-        {
-            get { return _enum; }
-            set
-            {
-                if (_enum != value)
-                {
-                    _enum = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.List<string> Enum { get; set; } = new System.Collections.Generic.List<string>();
 
         [Newtonsoft.Json.JsonProperty("minimum", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Minimum
-        {
-            get { return _minimum; }
-            set
-            {
-                if (_minimum != value)
-                {
-                    _minimum = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Minimum { get; set; }
 
         [Newtonsoft.Json.JsonProperty("maximum", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Maximum
-        {
-            get { return _maximum; }
-            set
-            {
-                if (_maximum != value)
-                {
-                    _maximum = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Maximum { get; set; }
 
         [Newtonsoft.Json.JsonProperty("items", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ItemsObject Items
-        {
-            get { return _items; }
-            set
-            {
-                if (_items != value)
-                {
-                    _items = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public ItemsObject Items { get; set; }
 
         [Newtonsoft.Json.JsonProperty("uniqueItems", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool UniqueItems
-        {
-            get { return _uniqueItems; }
-            set
-            {
-                if (_uniqueItems != value)
-                {
-                    _uniqueItems = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public bool UniqueItems { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static DataTypeBase FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<DataTypeBase>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class Implicit : System.ComponentModel.INotifyPropertyChanged
+    public partial class Implicit
     {
-        private LoginEndpoint _loginEndpoint = new LoginEndpoint();
-        private string _tokenName;
-
-        [Newtonsoft.Json.JsonProperty("loginEndpoint", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public LoginEndpoint LoginEndpoint
-        {
-            get { return _loginEndpoint; }
-            set
-            {
-                if (_loginEndpoint != value)
-                {
-                    _loginEndpoint = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("loginEndpoint", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public LoginEndpoint LoginEndpoint { get; set; } = new LoginEndpoint();
 
         [Newtonsoft.Json.JsonProperty("tokenName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string TokenName
-        {
-            get { return _tokenName; }
-            set
-            {
-                if (_tokenName != value)
-                {
-                    _tokenName = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string TokenName { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static Implicit FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Implicit>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class AuthorizationCode : System.ComponentModel.INotifyPropertyChanged
+    public partial class AuthorizationCode
     {
-        private TokenEndpoint _tokenEndpoint = new TokenEndpoint();
-        private TokenRequestEndpoint _tokenRequestEndpoint = new TokenRequestEndpoint();
+        [Newtonsoft.Json.JsonProperty("tokenEndpoint", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TokenEndpoint TokenEndpoint { get; set; } = new TokenEndpoint();
 
-        [Newtonsoft.Json.JsonProperty("tokenEndpoint", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public TokenEndpoint TokenEndpoint
-        {
-            get { return _tokenEndpoint; }
-            set
-            {
-                if (_tokenEndpoint != value)
-                {
-                    _tokenEndpoint = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("tokenRequestEndpoint", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TokenRequestEndpoint TokenRequestEndpoint { get; set; } = new TokenRequestEndpoint();
 
-        [Newtonsoft.Json.JsonProperty("tokenRequestEndpoint", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public TokenRequestEndpoint TokenRequestEndpoint
-        {
-            get { return _tokenRequestEndpoint; }
-            set
-            {
-                if (_tokenRequestEndpoint != value)
-                {
-                    _tokenRequestEndpoint = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static AuthorizationCode FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<AuthorizationCode>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class LoginEndpoint : System.ComponentModel.INotifyPropertyChanged
+    public partial class LoginEndpoint
     {
-        private string _url;
+        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Url { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Url
-        {
-            get { return _url; }
-            set
-            {
-                if (_url != value)
-                {
-                    _url = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static LoginEndpoint FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<LoginEndpoint>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class TokenEndpoint : System.ComponentModel.INotifyPropertyChanged
+    public partial class TokenEndpoint
     {
-        private string _url;
-        private string _tokenName;
-
-        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Url
-        {
-            get { return _url; }
-            set
-            {
-                if (_url != value)
-                {
-                    _url = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Url { get; set; }
 
         [Newtonsoft.Json.JsonProperty("tokenName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string TokenName
-        {
-            get { return _tokenName; }
-            set
-            {
-                if (_tokenName != value)
-                {
-                    _tokenName = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string TokenName { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static TokenEndpoint FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<TokenEndpoint>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class TokenRequestEndpoint : System.ComponentModel.INotifyPropertyChanged
+    public partial class TokenRequestEndpoint
     {
-        private string _url;
-        private string _clientIdName;
-        private string _clientSecretName;
-
-        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Url
-        {
-            get { return _url; }
-            set
-            {
-                if (_url != value)
-                {
-                    _url = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Url { get; set; }
 
         [Newtonsoft.Json.JsonProperty("clientIdName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ClientIdName
-        {
-            get { return _clientIdName; }
-            set
-            {
-                if (_clientIdName != value)
-                {
-                    _clientIdName = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string ClientIdName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("clientSecretName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ClientSecretName
-        {
-            get { return _clientSecretName; }
-            set
-            {
-                if (_clientSecretName != value)
-                {
-                    _clientSecretName = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string ClientSecretName { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static TokenRequestEndpoint FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<TokenRequestEndpoint>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class Oauth2GrantType : System.ComponentModel.INotifyPropertyChanged
+    public partial class Oauth2GrantType
     {
-        private Implicit _implicit = new Implicit();
-        private AuthorizationCode _authorization_code = new AuthorizationCode();
-
         [Newtonsoft.Json.JsonProperty("implicit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Implicit Implicit
-        {
-            get { return _implicit; }
-            set
-            {
-                if (_implicit != value)
-                {
-                    _implicit = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public Implicit Implicit { get; set; } = new Implicit();
 
         [Newtonsoft.Json.JsonProperty("authorization_code", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public AuthorizationCode Authorization_code
-        {
-            get { return _authorization_code; }
-            set
-            {
-                if (_authorization_code != value)
-                {
-                    _authorization_code = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public AuthorizationCode Authorization_code { get; set; } = new AuthorizationCode();
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static Oauth2GrantType FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Oauth2GrantType>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class ParameterObject : DataTypeBase, System.ComponentModel.INotifyPropertyChanged
+    public partial class ParameterObject : DataTypeBase
     {
-        private ParameterObjectParamType _paramType;
-        private string _name;
-        private string _description;
-        private bool _required;
-        private bool _allowMultiple;
+        [Newtonsoft.Json.JsonProperty("paramType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ParameterObjectParamType ParamType { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("paramType", Required = Newtonsoft.Json.Required.Always)]
-        public ParameterObjectParamType ParamType
-        {
-            get { return _paramType; }
-            set
-            {
-                if (_paramType != value)
-                {
-                    _paramType = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                if (_name != value)
-                {
-                    _name = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                if (_description != value)
-                {
-                    _description = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Description { get; set; }
 
         [Newtonsoft.Json.JsonProperty("required", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool Required
-        {
-            get { return _required; }
-            set
-            {
-                if (_required != value)
-                {
-                    _required = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public bool Required { get; set; }
 
         [Newtonsoft.Json.JsonProperty("allowMultiple", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool AllowMultiple
-        {
-            get { return _allowMultiple; }
-            set
-            {
-                if (_allowMultiple != value)
-                {
-                    _allowMultiple = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public bool AllowMultiple { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static ParameterObject FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ParameterObject>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class ResponseMessageObject : System.ComponentModel.INotifyPropertyChanged
+    public partial class ResponseMessageObject
     {
-        private int _code;
-        private string _message;
-        private string _responseModel;
+        [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Code { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.Always)]
-        public int Code
-        {
-            get { return _code; }
-            set
-            {
-                if (_code != value)
-                {
-                    _code = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Message
-        {
-            get { return _message; }
-            set
-            {
-                if (_message != value)
-                {
-                    _message = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Message { get; set; }
 
         [Newtonsoft.Json.JsonProperty("responseModel", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ResponseModel
-        {
-            get { return _responseModel; }
-            set
-            {
-                if (_responseModel != value)
-                {
-                    _responseModel = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string ResponseModel { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static ResponseMessageObject FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ResponseMessageObject>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class OperationObject : DataTypeBase, System.ComponentModel.INotifyPropertyChanged
+    public partial class OperationObject : DataTypeBase
     {
-        private OperationObjectMethod _method;
-        private string _summary;
-        private string _notes;
-        private string _nickname;
-        private System.Collections.Generic.Dictionary<string, System.Collections.ObjectModel.ObservableCollection<Anonymous>> _authorizations = new System.Collections.Generic.Dictionary<string, System.Collections.ObjectModel.ObservableCollection<Anonymous>>();
-        private System.Collections.ObjectModel.ObservableCollection<ParameterObject> _parameters = new System.Collections.ObjectModel.ObservableCollection<ParameterObject>();
-        private System.Collections.ObjectModel.ObservableCollection<ResponseMessageObject> _responseMessages = new System.Collections.ObjectModel.ObservableCollection<ResponseMessageObject>();
-        private System.Collections.ObjectModel.ObservableCollection<string> _produces = new System.Collections.ObjectModel.ObservableCollection<string>();
-        private System.Collections.ObjectModel.ObservableCollection<string> _consumes = new System.Collections.ObjectModel.ObservableCollection<string>();
-        private OperationObjectDeprecated _deprecated;
-
-        [Newtonsoft.Json.JsonProperty("method", Required = Newtonsoft.Json.Required.Always)]
-        public OperationObjectMethod Method
-        {
-            get { return _method; }
-            set
-            {
-                if (_method != value)
-                {
-                    _method = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("method", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public OperationObjectMethod Method { get; set; }
 
         [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [System.ComponentModel.DataAnnotations.StringLength(120)]
-        public string Summary
-        {
-            get { return _summary; }
-            set
-            {
-                if (_summary != value)
-                {
-                    _summary = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Summary { get; set; }
 
         [Newtonsoft.Json.JsonProperty("notes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Notes
-        {
-            get { return _notes; }
-            set
-            {
-                if (_notes != value)
-                {
-                    _notes = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Notes { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("nickname", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [System.ComponentModel.DataAnnotations.RegularExpression(@"^[a-zA-Z0-9_]+$")]
-        public string Nickname
-        {
-            get { return _nickname; }
-            set
-            {
-                if (_nickname != value)
-                {
-                    _nickname = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("nickname", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Nickname { get; set; }
 
         [Newtonsoft.Json.JsonProperty("authorizations", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.Dictionary<string, System.Collections.ObjectModel.ObservableCollection<Anonymous>> Authorizations
-        {
-            get { return _authorizations; }
-            set
-            {
-                if (_authorizations != value)
-                {
-                    _authorizations = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Anonymous>> Authorizations { get; set; } = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Anonymous>>();
 
-        [Newtonsoft.Json.JsonProperty("parameters", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.ObjectModel.ObservableCollection<ParameterObject> Parameters
-        {
-            get { return _parameters; }
-            set
-            {
-                if (_parameters != value)
-                {
-                    _parameters = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("parameters", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<ParameterObject> Parameters { get; set; } = new System.Collections.Generic.List<ParameterObject>();
 
         [Newtonsoft.Json.JsonProperty("responseMessages", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<ResponseMessageObject> ResponseMessages
-        {
-            get { return _responseMessages; }
-            set
-            {
-                if (_responseMessages != value)
-                {
-                    _responseMessages = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.List<ResponseMessageObject> ResponseMessages { get; set; } = new System.Collections.Generic.List<ResponseMessageObject>();
 
         [Newtonsoft.Json.JsonProperty("produces", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> Produces
-        {
-            get { return _produces; }
-            set
-            {
-                if (_produces != value)
-                {
-                    _produces = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.List<string> Produces { get; set; } = new System.Collections.Generic.List<string>();
 
         [Newtonsoft.Json.JsonProperty("consumes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> Consumes
-        {
-            get { return _consumes; }
-            set
-            {
-                if (_consumes != value)
-                {
-                    _consumes = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.List<string> Consumes { get; set; } = new System.Collections.Generic.List<string>();
 
         [Newtonsoft.Json.JsonProperty("deprecated", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public OperationObjectDeprecated Deprecated
-        {
-            get { return _deprecated; }
-            set
-            {
-                if (_deprecated != value)
-                {
-                    _deprecated = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public OperationObjectDeprecated Deprecated { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static OperationObject FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<OperationObject>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class PropertyObject : DataTypeBase, System.ComponentModel.INotifyPropertyChanged
+    public partial class PropertyObject : DataTypeBase
     {
-
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static PropertyObject FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<PropertyObject>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class ModelsObject : System.ComponentModel.INotifyPropertyChanged
+    public partial class ModelsObject
     {
-        private string _id;
-        private string _description;
-        private System.Collections.Generic.Dictionary<string, PropertyObject> _properties = new System.Collections.Generic.Dictionary<string, PropertyObject>();
-        private System.Collections.ObjectModel.ObservableCollection<string> _subTypes = new System.Collections.ObjectModel.ObservableCollection<string>();
-        private string _discriminator;
-
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Id
-        {
-            get { return _id; }
-            set
-            {
-                if (_id != value)
-                {
-                    _id = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                if (_description != value)
-                {
-                    _description = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Description { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("properties", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.Dictionary<string, PropertyObject> Properties
-        {
-            get { return _properties; }
-            set
-            {
-                if (_properties != value)
-                {
-                    _properties = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("properties", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.Dictionary<string, PropertyObject> Properties { get; set; } = new System.Collections.Generic.Dictionary<string, PropertyObject>();
 
         [Newtonsoft.Json.JsonProperty("subTypes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> SubTypes
-        {
-            get { return _subTypes; }
-            set
-            {
-                if (_subTypes != value)
-                {
-                    _subTypes = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.List<string> SubTypes { get; set; } = new System.Collections.Generic.List<string>();
 
         [Newtonsoft.Json.JsonProperty("discriminator", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Discriminator
-        {
-            get { return _discriminator; }
-            set
-            {
-                if (_discriminator != value)
-                {
-                    _discriminator = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Discriminator { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static ModelsObject FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<ModelsObject>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class Json : System.ComponentModel.INotifyPropertyChanged
+    public partial class Json
     {
-        private JsonSwaggerVersion _swaggerVersion;
-        private string _apiVersion;
-        private string _basePath;
-        private string _resourcePath;
-        private System.Collections.ObjectModel.ObservableCollection<ApiObject> _apis = new System.Collections.ObjectModel.ObservableCollection<ApiObject>();
-        private System.Collections.Generic.Dictionary<string, ModelsObject> _models = new System.Collections.Generic.Dictionary<string, ModelsObject>();
-        private System.Collections.ObjectModel.ObservableCollection<string> _produces = new System.Collections.ObjectModel.ObservableCollection<string>();
-        private System.Collections.ObjectModel.ObservableCollection<string> _consumes = new System.Collections.ObjectModel.ObservableCollection<string>();
-        private System.Collections.Generic.Dictionary<string, Anonymous2> _authorizations = new System.Collections.Generic.Dictionary<string, Anonymous2>();
-
-        [Newtonsoft.Json.JsonProperty("swaggerVersion", Required = Newtonsoft.Json.Required.Always)]
-        public JsonSwaggerVersion SwaggerVersion
-        {
-            get { return _swaggerVersion; }
-            set
-            {
-                if (_swaggerVersion != value)
-                {
-                    _swaggerVersion = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("swaggerVersion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public JsonSwaggerVersion SwaggerVersion { get; set; }
 
         [Newtonsoft.Json.JsonProperty("apiVersion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ApiVersion
-        {
-            get { return _apiVersion; }
-            set
-            {
-                if (_apiVersion != value)
-                {
-                    _apiVersion = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string ApiVersion { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("basePath", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [System.ComponentModel.DataAnnotations.RegularExpression(@"^https?://")]
-        public string BasePath
-        {
-            get { return _basePath; }
-            set
-            {
-                if (_basePath != value)
-                {
-                    _basePath = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("basePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string BasePath { get; set; }
 
         [Newtonsoft.Json.JsonProperty("resourcePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [System.ComponentModel.DataAnnotations.RegularExpression(@"^/")]
-        public string ResourcePath
-        {
-            get { return _resourcePath; }
-            set
-            {
-                if (_resourcePath != value)
-                {
-                    _resourcePath = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string ResourcePath { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("apis", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.ObjectModel.ObservableCollection<ApiObject> Apis
-        {
-            get { return _apis; }
-            set
-            {
-                if (_apis != value)
-                {
-                    _apis = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("apis", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.List<ApiObject> Apis { get; set; } = new System.Collections.Generic.List<ApiObject>();
 
         [Newtonsoft.Json.JsonProperty("models", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.Dictionary<string, ModelsObject> Models
-        {
-            get { return _models; }
-            set
-            {
-                if (_models != value)
-                {
-                    _models = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.Dictionary<string, ModelsObject> Models { get; set; } = new System.Collections.Generic.Dictionary<string, ModelsObject>();
 
         [Newtonsoft.Json.JsonProperty("produces", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> Produces
-        {
-            get { return _produces; }
-            set
-            {
-                if (_produces != value)
-                {
-                    _produces = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.List<string> Produces { get; set; } = new System.Collections.Generic.List<string>();
 
         [Newtonsoft.Json.JsonProperty("consumes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> Consumes
-        {
-            get { return _consumes; }
-            set
-            {
-                if (_consumes != value)
-                {
-                    _consumes = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.List<string> Consumes { get; set; } = new System.Collections.Generic.List<string>();
 
         [Newtonsoft.Json.JsonProperty("authorizations", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.Dictionary<string, Anonymous2> Authorizations
-        {
-            get { return _authorizations; }
-            set
-            {
-                if (_authorizations != value)
-                {
-                    _authorizations = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public System.Collections.Generic.Dictionary<string, Anonymous2> Authorizations { get; set; } = new System.Collections.Generic.Dictionary<string, Anonymous2>();
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static Json FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Json>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
@@ -1292,58 +314,14 @@ namespace MyNamespace
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class Anonymous : System.ComponentModel.INotifyPropertyChanged
+    public partial class Anonymous
     {
-        private string _scope;
-        private string _description;
-
-        [Newtonsoft.Json.JsonProperty("scope", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Scope
-        {
-            get { return _scope; }
-            set
-            {
-                if (_scope != value)
-                {
-                    _scope = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [Newtonsoft.Json.JsonProperty("scope", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Scope { get; set; }
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description
-        {
-            get { return _description; }
-            set
-            {
-                if (_description != value)
-                {
-                    _description = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        public string Description { get; set; }
 
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static Anonymous FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Anonymous>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 
@@ -1367,27 +345,8 @@ namespace MyNamespace
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.10.53.0 (Newtonsoft.Json v9.0.0.0)")]
-    public partial class Anonymous2 : System.ComponentModel.INotifyPropertyChanged
+    public partial class Anonymous2
     {
-
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
-        }
-
-        public static Anonymous2 FromJson(string data)
-        {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Anonymous2>(data);
-        }
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
 
     }
 }

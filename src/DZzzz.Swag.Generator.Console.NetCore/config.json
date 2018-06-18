@@ -3,6 +3,6 @@
   "swaggerFormat": "json",
   "swaggerVersion": "1.2",
   "outputFolder": "/d/test/generator.output",
-  "outputSolutionName": "AgilQuest.Phoenix",
+  "outputProjectName": "AgilQuest.Phoenix",
   "language": "CSharp"
 }

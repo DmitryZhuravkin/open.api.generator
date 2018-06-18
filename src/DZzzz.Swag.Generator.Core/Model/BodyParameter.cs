@@ -4,6 +4,6 @@
     {
         public string BodyParameterName { get; set; }
 
-        public string BoduParameterType { get; set; }
+        public string BodyParameterType { get; set; }
     }
 }

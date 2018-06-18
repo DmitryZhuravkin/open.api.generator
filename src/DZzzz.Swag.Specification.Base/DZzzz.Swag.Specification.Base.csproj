@@ -5,17 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DZzzz.Swag.Generator.Core\DZzzz.Swag.Generator.Core.csproj" />
     <ProjectReference Include="..\DZzzz.Swag.Generator.Infrastructure\DZzzz.Swag.Generator.Infrastructure.csproj" />
-    <ProjectReference Include="..\DZzzz.Swag.Specification.Base\DZzzz.Swag.Specification.Base.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TestData\" />
   </ItemGroup>
 
 </Project>
