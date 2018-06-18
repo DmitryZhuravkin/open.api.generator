@@ -1,7 +1,6 @@
 ﻿
 using System;
 using System.IO;
-
 using DZzzz.Swag.CodeGeneration.CSharp.Common;
 using DZzzz.Swag.Generator.Core.Interfaces;
 using DZzzz.Swag.Generator.Core.Model;
@@ -81,14 +80,13 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
         private MethodDeclarationSyntax GenerateMethod(OperationContext operationContext)
         {
             string returnTypeName = GetReturnType(operationContext);
-            StatementSyntax syntax = GetMethodSyntax(operationContext);
+            string relativeUrl = GenerateRelativeUrl(operationContext);
 
-            var methodDeclaration = SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(returnTypeName), $"{operationContext.Name.NormalizeName()}Async")
+            StatementSyntax syntax = GetMethodSyntax(operationContext, relativeUrl);
+
+            var methodDeclaration = SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(returnTypeName), $"{operationContext.Name.ToCamelCase()}Async")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .WithBody(SyntaxFactory.Block(syntax));
-
-
-
 
             return methodDeclaration;
         }
@@ -97,48 +95,56 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
         {
             string returnTypeName = "Task";
 
-            if (!String.IsNullOrEmpty(operationContext.ReturnTypeName.NormalizeName()))
+            if (!String.IsNullOrEmpty(operationContext.ReturnTypeName))
             {
-                returnTypeName = $"Task<{operationContext.ReturnTypeName.NormalizeName()}>";
+                returnTypeName = $"Task<{operationContext.ReturnTypeName.ToCamelCase()}>";
             }
 
             return returnTypeName;
         }
 
-        private StatementSyntax GetMethodSyntax(OperationContext operationContext)
+        private StatementSyntax GetMethodSyntax(OperationContext operationContext, string relativeUrl)
         {
-            // return SendRequestAsync<AppAuthRequest, AppAuthResponse>("auth/application/login", HttpMethod.Post, request);
-            // return SendRequestAsync<AppAuthResponse>("auth/application/login", HttpMethod.Post, request);
             StatementSyntax syntax = null;
 
-            if (String.IsNullOrEmpty(operationContext.ReturnTypeName))
+            string method = $"HttpMethod.{operationContext.Method.Method.ToLower().ToCamelCase()}";
+            string returnType = operationContext.ReturnTypeName?.ToCamelCase();
+            string bodyParameterType = operationContext.BodyParameter?.BodyParameterType?.ToCamelCase();
+            string bodyParameterName = operationContext.BodyParameter?.BodyParameterName;
+
+            if (String.IsNullOrEmpty(returnType))
             {
                 if (operationContext.BodyParameter != null)
                 {
-                    syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync<{operationContext.BodyParameter.BodyParameterType}>(\"{}\", " +
-                                                          $"{operationContext.Method}, {operationContext.BodyParameter.BodyParameterName});");
+                    syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync<{bodyParameterType}>($\"{relativeUrl}\", " +
+                        $"{method}, {bodyParameterName});");
                 }
                 else
                 {
-                    syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync(\"{}\", " +
-                                                          $"{operationContext.Method});");
+                    syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync($\"{relativeUrl}\", " +
+                        $"{method});");
                 }
             }
             else
             {
                 if (operationContext.BodyParameter != null)
                 {
-                    syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync<{operationContext.ReturnTypeName}, {operationContext.BodyParameter.BodyParameterType}>(\"{}\", " +
-                                                          $"{operationContext.Method}, {operationContext.BodyParameter.BodyParameterName});");
+                    syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync<{returnType}, {bodyParameterType}>($\"{relativeUrl}\", " +
+                        $"{method}, {bodyParameterName});");
                 }
                 else
                 {
-                    syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync<{operationContext.ReturnTypeName}>(\"{}\", " +
-                                                          $"{operationContext.Method});");
+                    syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync<{returnType}>($\"{relativeUrl}\", " +
+                        $"{method});");
                 }
             }
 
             return syntax;
+        }
+
+        private string GenerateRelativeUrl(OperationContext operationContext)
+        {
+            return operationContext.RelativeUrl;
         }
     }
 }

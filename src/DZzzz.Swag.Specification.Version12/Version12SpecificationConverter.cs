@@ -1,5 +1,6 @@
 ﻿using DZzzz.Swag.Generator.Core.Model;
 using DZzzz.Swag.Specification.Base.Interfaces;
+using DZzzz.Swag.Specification.Version12.Common;
 
 namespace DZzzz.Swag.Specification.Version12
 {
@@ -35,8 +36,41 @@ namespace DZzzz.Swag.Specification.Version12
                     OperationContext operationContext = new OperationContext
                     {
                         RelativeUrl = $"{model.BasePath}{operationPath}",
-                        Method = operation.Method.ToString()
+                        Method = operation.Method.ToHttpMethod(),
+                        Name = operation.Nickname,
+                        ReturnTypeName = operation.Type
                     };
+
+
+                    foreach (ParameterObject parameter in operation.Parameters)
+                    {
+                        // TODO: parse all others
+                        if (parameter.ParamType == ParameterObjectParamType.Body)
+                        {
+                            operationContext.BodyParameter = new BodyParameter
+                            {
+                                BodyParameterName = parameter.Name,
+                                BodyParameterType = parameter.Type
+                            };
+                        }
+                        else if (parameter.ParamType == ParameterObjectParamType.Path)
+                        {
+                            operationContext.PathParameters.Add(new PathParameter
+                            {
+                                Name = parameter.Name,
+                                Type = parameter.Type,
+                                Format = parameter.Format
+                            });
+                        }
+                        else if (parameter.ParamType == ParameterObjectParamType.Query)
+                        {
+                            operationContext.QueryParameters.Add(new QueryParameter
+                            {
+                                Name = parameter.Name,
+                                Type = parameter.Type
+                            });
+                        }
+                    }
 
                     operationGroupContext.Operations.Add(operationContext);
                 }
