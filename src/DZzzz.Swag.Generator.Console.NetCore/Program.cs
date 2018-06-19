@@ -19,14 +19,12 @@ namespace DZzzz.Swag.Generator.Console.NetCore
 
             CSharpLanguageCodeGenerator codeGenerator = new CSharpLanguageCodeGenerator(new CSharpLanguageSettings
             {
-                OutputFolder = @"AgilQuest.Phoenix",
-                OutputProjectName = "AgilQuest.Phoenix",
-                RepositoryFileNamePrefix = "Phoenix"
+                OutputFolder = @"E:\development.active\agilquest\sources\AgilQuest.Net",
+                OutputProjectName = "AgilQuest.Net.Phoenix",
+                FileNamePrefix = "Phoenix"
             });
 
             codeGenerator.Generate(context);
-
-            System.Console.ReadKey(true);
         }
     }
 }

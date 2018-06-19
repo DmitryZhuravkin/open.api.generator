@@ -6,6 +6,6 @@
 
         public string OutputProjectName { get; set; }
 
-        public string RepositoryFileNamePrefix { get; set; }
+        public string FileNamePrefix { get; set; }
     }
 }

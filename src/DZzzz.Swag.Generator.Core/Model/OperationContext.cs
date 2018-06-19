@@ -13,16 +13,16 @@ namespace DZzzz.Swag.Generator.Core.Model
 
         public string ReturnTypeName { get; set; }
 
-        public BodyParameter BodyParameter { get; set; }
+        public Parameter BodyParameter { get; set; }
 
-        public IList<QueryParameter> QueryParameters { get; }
+        public IList<Parameter> QueryParameters { get; }
 
-        public IList<PathParameter> PathParameters { get; }
+        public IList<Parameter> PathParameters { get; }
 
         public OperationContext()
         {
-            QueryParameters = new List<QueryParameter>();
-            PathParameters = new List<PathParameter>();
+            QueryParameters = new List<Parameter>();
+            PathParameters = new List<Parameter>();
         }
     }
 }

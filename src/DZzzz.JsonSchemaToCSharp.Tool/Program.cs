@@ -20,8 +20,7 @@ namespace DZzzz.JsonSchemaToCSharp.Tool
                 ArrayBaseType = "System.Collections.Generic.List",
                 ArrayType = "System.Collections.Generic.List",
                 ClassStyle = CSharpClassStyle.Poco,
-                RequiredPropertiesMustBeDefined = false,
-                HandleReferences = false,
+                RequiredPropertiesMustBeDefined = false
             };
 
             CSharpGenerator generator = new CSharpGenerator(schema, settings);

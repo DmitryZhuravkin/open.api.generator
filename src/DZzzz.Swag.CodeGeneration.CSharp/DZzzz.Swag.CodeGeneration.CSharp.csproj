@@ -12,4 +12,8 @@
     <ProjectReference Include="..\DZzzz.Swag.Generator.Core\DZzzz.Swag.Generator.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Templates\" />
+  </ItemGroup>
+
 </Project>

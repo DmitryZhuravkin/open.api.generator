@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using DZzzz.Swag.Generator.Core.Model;
@@ -56,6 +57,14 @@ namespace DZzzz.Swag.Specification.Version12
             foreach (OperationGroupContext operationGroupContext in child.Groups)
             {
                 existing.Groups.Add(operationGroupContext);
+            }
+
+            foreach (KeyValuePair<string, DataModelContext> dataModelContext in child.DataModels)
+            {
+                if (!existing.DataModels.ContainsKey(dataModelContext.Key))
+                {
+                    existing.DataModels.Add(dataModelContext.Key, dataModelContext.Value);
+                }
             }
         }
     }
