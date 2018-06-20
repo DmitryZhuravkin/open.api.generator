@@ -1,4 +1,5 @@
-﻿using DZzzz.Swag.CodeGeneration.CSharp.Common;
+﻿using System.Text.RegularExpressions;
+using DZzzz.Swag.CodeGeneration.CSharp.Common;
 using DZzzz.Swag.Generator.Core.Model;
 
 namespace DZzzz.Swag.CodeGeneration.CSharp
@@ -20,23 +21,47 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
             switch (type)
             {
                 case "integer":
-                    return format.ToCamelCase();
+                    return format.ToCamelCase() + "?";
                 case "number":
-                    return format.ToCamelCase();
+                    return format.ToCamelCase() + "?";
                 case "string":
                     if (format == "byte")
                     {
-                        return "Byte";
+                        return "Byte?";
                     }
                     else if (format == "date" || format == "date-time")
                     {
-                        return "DateTime";
+                        return "DateTime?";
                     }
 
                     break;
             }
 
-            return type.ToCamelCase();
+            return FixPossibleTypeName(type);
+        }
+
+        public string FixPossibleTypeName(string type)
+        {
+            string typeName = type.Trim().Replace(" ", "");
+            
+            return RemoveDashes(typeName).ToCamelCase();
+        }
+
+        private string RemoveDashes(string value)
+        {
+            Regex regex = new Regex(@"-(?<middle>\w)");
+
+            return regex.Replace(value, Evaluator);
+        }
+
+        private string Evaluator(Match match)
+        {
+            if (match.Success)
+            {
+                return match.Groups["middle"].Value.ToUpper();
+            }
+
+            return match.Groups["middle"].Value;
         }
     }
 }

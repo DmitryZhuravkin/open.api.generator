@@ -33,7 +33,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
         {
             try
             {
-                string className = contextDataModel.Key.ToCamelCase();
+                string className = typeNameResolver.FixPossibleTypeName(contextDataModel.Key);
                 string fileName = $"{className}.cs";
                 string fileLocation = Path.Combine(configuration.OutputFolder, $"{configuration.OutputProjectName}\\Model\\{fileName}");
 
