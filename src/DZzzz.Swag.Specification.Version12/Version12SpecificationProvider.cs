@@ -158,6 +158,7 @@ namespace DZzzz.Swag.Specification.Version12
                 if (!String.IsNullOrEmpty(dataTypeObject.Type))
                 {
                     parameter.Type = dataTypeObject.Type;
+                    parameter.Format = dataTypeObject.Format;
                 }
                 else
                 {

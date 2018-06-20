@@ -16,12 +16,14 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
     {
         private readonly CSharpLanguageSettings configuration;
         private readonly CSharpLanguageModelGenerator modelGenerator;
+        private readonly CSharpTypeNameResolver typeNameResolver;
 
         public CSharpLanguageCodeGenerator(CSharpLanguageSettings configuration)
         {
             this.configuration = configuration;
 
-            modelGenerator = new CSharpLanguageModelGenerator(configuration);
+            typeNameResolver = new CSharpTypeNameResolver();
+            modelGenerator = new CSharpLanguageModelGenerator(configuration, typeNameResolver);
         }
 
         public void Generate(GenerationContext context)

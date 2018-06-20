@@ -13,10 +13,12 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
     public class CSharpLanguageModelGenerator
     {
         private readonly CSharpLanguageSettings configuration;
+        private readonly CSharpTypeNameResolver typeNameResolver;
 
-        public CSharpLanguageModelGenerator(CSharpLanguageSettings configuration)
+        public CSharpLanguageModelGenerator(CSharpLanguageSettings configuration, CSharpTypeNameResolver typeNameResolver)
         {
             this.configuration = configuration;
+            this.typeNameResolver = typeNameResolver;
         }
 
         public void GenerateModelClasses(GenerationContext context)
@@ -48,7 +50,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
 
                 foreach (KeyValuePair<string, Parameter> valuePropety in contextDataModel.Value.Propeties)
                 {
-                    string typeName = valuePropety.Value.Type.ToCamelCase();
+                    string typeName = typeNameResolver.ResolveType(valuePropety.Value);
 
                     if (valuePropety.Value.IsCollectionParameter)
                     {
