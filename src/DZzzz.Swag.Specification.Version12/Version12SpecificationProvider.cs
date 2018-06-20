@@ -7,6 +7,7 @@ using DZzzz.Swag.Generator.Core.Interfaces;
 using DZzzz.Swag.Generator.Core.Model;
 using DZzzz.Swag.Generator.Infrastructure.Http;
 using DZzzz.Swag.Specification.Base;
+using DZzzz.Swag.Specification.Base.Common;
 using DZzzz.Swag.Specification.Version12.Model.Declaration;
 using DZzzz.Swag.Specification.Version12.Model.Listing;
 
@@ -86,7 +87,7 @@ namespace DZzzz.Swag.Specification.Version12
 
         private void ProcessOperations(ApiDeclaration apiDeclaration, GenerationContext dataContext)
         {
-            OperationGroupContext operationGroupContext = new OperationGroupContext { Name = apiDeclaration.ResourcePath };
+            OperationGroupContext operationGroupContext = new OperationGroupContext { Name = apiDeclaration.ResourcePath.NormalizeName() };
 
             foreach (ApiObject apiObject in apiDeclaration.Apis)
             {

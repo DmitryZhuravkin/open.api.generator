@@ -29,63 +29,46 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
 
         public void Generate(GenerationContext context)
         {
+            InitFolders();
+
             modelGenerator.GenerateModelClasses(context);
 
-            GenerateRepositoryBaseClass();
+            string baseClassName = GenerateRepositoryBaseClass();
 
             foreach (OperationGroupContext operationGroupContext in context.Groups)
             {
-                GenerateRepositoryClass(operationGroupContext);
+                string generatedClassName = GenerateOperationGenClass(operationGroupContext, baseClassName);
+                GenerateOperationClass(operationGroupContext, generatedClassName);
             }
         }
 
-        private void GenerateRepositoryBaseClass()
+        private void InitFolders()
         {
-
-
-
-            try
-            {
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            configuration.OutputFolder?.CreateDirectoryIfNotExists();
+            configuration.ModelFolderLocation?.CreateDirectoryIfNotExists();
+            configuration.OperationsFolderLocation?.CreateDirectoryIfNotExists();
+            configuration.OperationsGeneratedFolderLocation?.CreateDirectoryIfNotExists();
+            configuration.OperationsBaseFolderLocation?.CreateDirectoryIfNotExists();
         }
 
-        private void GenerateRepositoryClass(OperationGroupContext operationGroupContext)
+        private string GenerateRepositoryBaseClass()
         {
-            try
-            {
-                string className = $"{configuration.FileNamePrefix}{operationGroupContext.Name.NormalizeName()}Repository";
-                string fileName = $"{className}.generated.cs";
-                string fileLocation = Path.Combine(configuration.OutputFolder, $"{configuration.OutputProjectName}\\Repositories\\Generated\\{fileName}");
+            string className = String.Join("", configuration.OperationClassPrefixName, configuration.OperationClassBaseName, CSharpLanguageSettings.BaseKeyWord);
 
+            string fileName = $"{className}.cs";
+
+            string fileLocation = Path.Combine(configuration.OperationsBaseFolderLocation, fileName);
+
+            if (!File.Exists(fileLocation))
+            {
                 CompilationUnitSyntax compilationUnit = SyntaxFactory.CompilationUnit();
-                compilationUnit = compilationUnit
-                    .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System")))
-                    .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Net.Http")))
-                    .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Threading.Tasks")))
-                    .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName($"{configuration.OutputProjectName}.Model")))
-                    .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName($"{configuration.OutputProjectName}.Repositories.Base")));
 
-                NamespaceDeclarationSyntax @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName($"{configuration.OutputProjectName}.Repositories")).NormalizeWhitespace();
-
-                //ConstructorDeclarationSyntax constructor = GenerateConstructor(className);
+                NamespaceDeclarationSyntax @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(
+                    String.Join(".", configuration.ProjectName, configuration.OperationsFolderName, configuration.OperationsGeneratedFolderName)).NormalizeWhitespace());
 
                 ClassDeclarationSyntax classDeclaration = SyntaxFactory.ClassDeclaration(className)
                     .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                    .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName($"{configuration.FileNamePrefix}RepositoryBase")));
-                //.AddMembers(constructor);
-
-                foreach (OperationContext operationContext in operationGroupContext.Operations)
-                {
-                    MethodDeclarationSyntax methodDeclaration = GenerateMethod(operationContext);
-
-                    classDeclaration = classDeclaration.AddMembers(methodDeclaration);
-                }
+                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.AbstractKeyword));
 
                 @namespace = @namespace.AddMembers(classDeclaration);
                 compilationUnit = compilationUnit.AddMembers(@namespace);
@@ -94,10 +77,84 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
 
                 File.WriteAllText(fileLocation, fileContent);
             }
-            catch
+
+            return className;
+        }
+
+        private void GenerateOperationClass(OperationGroupContext operationGroupContext, string generatedClassName)
+        {
+            try
             {
-                // DO NOTHING
+                string className = String.Join("", configuration.OperationClassPrefixName, operationGroupContext.Name, configuration.OperationClassBaseName);
+
+                string fileName = $"{className}.cs";
+                string fileLocation = Path.Combine(configuration.OperationsFolderLocation, fileName);
+
+                if (!File.Exists(fileLocation))
+                {
+                    CompilationUnitSyntax compilationUnit = SyntaxFactory.CompilationUnit();
+
+                    NamespaceDeclarationSyntax @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(
+                        String.Join(".", configuration.ProjectName, configuration.OperationsFolderName)).NormalizeWhitespace());
+
+                    ClassDeclarationSyntax classDeclaration = SyntaxFactory.ClassDeclaration(className)
+                        .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                        .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName(generatedClassName)));
+
+                    @namespace = @namespace.AddMembers(classDeclaration);
+                    compilationUnit = compilationUnit.AddMembers(@namespace);
+
+                    string fileContent = compilationUnit.NormalizeWhitespace().ToFullString();
+
+                    File.WriteAllText(fileLocation, fileContent);
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        private string GenerateOperationGenClass(OperationGroupContext operationGroupContext, string baseClassName)
+        {
+            string className = String.Join("", configuration.OperationClassPrefixName, operationGroupContext.Name, CSharpLanguageSettings.GeneratedKeyWord, configuration.OperationClassBaseName);
+
+            string fileName = $"{className}.generated.cs";
+            string fileLocation = Path.Combine(configuration.OperationsGeneratedFolderLocation, fileName);
+
+            CompilationUnitSyntax compilationUnit = SyntaxFactory.CompilationUnit();
+            compilationUnit = compilationUnit
+                .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System")))
+                .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Net.Http")))
+                .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Threading.Tasks")))
+                .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName($"{configuration.ProjectName}.{configuration.ModelFolderName}")))
+                .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(String.Join(".", configuration.ProjectName, configuration.OperationsFolderName, configuration.OperationsBaseFolderName))));
+
+            NamespaceDeclarationSyntax @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(
+                String.Join(".", configuration.ProjectName, configuration.OperationsFolderName, configuration.OperationsGeneratedFolderName)).NormalizeWhitespace());
+
+            //ConstructorDeclarationSyntax constructor = GenerateConstructor(className);
+
+            ClassDeclarationSyntax classDeclaration = SyntaxFactory.ClassDeclaration(className)
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName(baseClassName)));
+            //.AddMembers(constructor);
+
+            foreach (OperationContext operationContext in operationGroupContext.Operations)
+            {
+                MethodDeclarationSyntax methodDeclaration = GenerateMethod(operationContext);
+
+                classDeclaration = classDeclaration.AddMembers(methodDeclaration);
+            }
+
+            @namespace = @namespace.AddMembers(classDeclaration);
+            compilationUnit = compilationUnit.AddMembers(@namespace);
+
+            string fileContent = compilationUnit.NormalizeWhitespace().ToFullString();
+
+            File.WriteAllText(fileLocation, fileContent);
+
+            return className;
         }
 
         //private ConstructorDeclarationSyntax GenerateConstructor(string className)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 using DZzzz.Swag.CodeGeneration.CSharp.Common;
@@ -36,7 +37,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
             {
                 string className = typeNameResolver.FixPossibleTypeNameIssues(contextDataModel.Key);
                 string fileName = $"{className}.cs";
-                string fileLocation = Path.Combine(configuration.OutputFolder, $"{configuration.OutputProjectName}\\Model\\{fileName}");
+                string fileLocation = Path.Combine(configuration.ModelFolderLocation, fileName);
 
                 CompilationUnitSyntax compilationUnit = SyntaxFactory.CompilationUnit();
                 compilationUnit = compilationUnit
@@ -44,7 +45,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
                     .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Collections.Generic")))
                     .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("Newtonsoft.Json")));
 
-                var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName($"{configuration.OutputProjectName}.Model")).NormalizeWhitespace();
+                var @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName($"{configuration.ProjectName}.{configuration.ModelFolderName}")).NormalizeWhitespace();
 
                 var classDeclaration = SyntaxFactory.ClassDeclaration(className)
                     .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
@@ -88,9 +89,9 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
 
                 File.WriteAllText(fileLocation, fileContent);
             }
-            catch
+            catch (Exception e)
             {
-                // DO NOTHING
+                Console.WriteLine(e);
             }
         }
     }

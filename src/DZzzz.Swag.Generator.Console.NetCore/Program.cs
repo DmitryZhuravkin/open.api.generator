@@ -20,9 +20,8 @@ namespace DZzzz.Swag.Generator.Console.NetCore
 
             CSharpLanguageCodeGenerator codeGenerator = new CSharpLanguageCodeGenerator(new CSharpLanguageSettings
             {
-                OutputFolder = @"E:\development.active\agilquest\sources\AgilQuest.Net",
-                OutputProjectName = "AgilQuest.Net.Phoenix",
-                FileNamePrefix = "Phoenix"
+                ProjectName = "AgilQuest.Net.Phoenix",
+                OperationClassPrefixName = "Phoenix"
             });
 
             codeGenerator.Generate(context);

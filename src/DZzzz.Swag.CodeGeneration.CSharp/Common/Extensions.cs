@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.IO;
 
 namespace DZzzz.Swag.CodeGeneration.CSharp.Common
 {
@@ -6,24 +7,27 @@ namespace DZzzz.Swag.CodeGeneration.CSharp.Common
     {
         public static string ToCamelCase(this string value)
         {
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+
             return $"{value[0].ToString().ToUpper()}{value.Substring(1, value.Length - 1)}";
         }
 
-        public static string NormalizeName(this string value)
+        public static void CreateDirectoryIfNotExists(this string path)
         {
-            Regex regex = new Regex(@"/(?<middle>\w)");
-
-            return regex.Replace(value, Evaluator);
-        }
-
-        private static string Evaluator(Match match)
-        {
-            if (match.Success)
+            try
             {
-                return match.Groups["middle"].Value.ToUpper();
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
             }
-
-            return match.Groups["middle"].Value;
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
