@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
 
 namespace DZzzz.Swag.Generator.Core.Model
 {
@@ -9,7 +8,7 @@ namespace DZzzz.Swag.Generator.Core.Model
 
         public string RelativeUrl { get; set; }
 
-        public HttpMethod Method { get; set; }
+        public string Method { get; set; }
 
         public string ReturnTypeName { get; set; }
 

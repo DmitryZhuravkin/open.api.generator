@@ -14,8 +14,4 @@
     <ProjectReference Include="..\DZzzz.Swag.Specification.Base\DZzzz.Swag.Specification.Base.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TestData\" />
-  </ItemGroup>
-
 </Project>

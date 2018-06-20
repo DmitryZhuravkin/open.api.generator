@@ -12,7 +12,7 @@ namespace DZzzz.Swag.Generator.Console.NetCore
             Version12SpecificationProvider provider = new Version12SpecificationProvider(new SwagSpecificationContext()
             {
                 Url = "http://209.201.33.16:8080/docs/aq-api/apidocs/service.json",
-                Format = "json"
+                Format = SwagFormat.Json
             });
 
             GenerationContext context = provider.GetSpecificationAsync().Result;

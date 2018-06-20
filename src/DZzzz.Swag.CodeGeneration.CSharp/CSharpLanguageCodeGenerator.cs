@@ -164,7 +164,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
         {
             StatementSyntax syntax;
 
-            string method = $"HttpMethod.{operationContext.Method.Method.ToLower().ToCamelCase()}";
+            string method = $"HttpMethod.{operationContext.Method.ToLower().ToCamelCase()}";
             string returnType = operationContext.ReturnTypeName?.ToCamelCase();
             string bodyParameterType = operationContext.BodyParameter?.Type?.ToCamelCase();
             string bodyParameterName = operationContext.BodyParameter?.Name;

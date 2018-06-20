@@ -4,6 +4,6 @@
     {
         public string Url { get; set; }
 
-        public string Format { get; set; }
+        public SwagFormat Format { get; set; }
     }
 }
