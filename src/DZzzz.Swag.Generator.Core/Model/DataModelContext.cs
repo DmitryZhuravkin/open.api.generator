@@ -6,13 +6,13 @@ namespace DZzzz.Swag.Generator.Core.Model
     {
         public string ID { get; set; }
 
-        public Dictionary<string, Parameter> Propeties { get; }
+        public Dictionary<string, ParameterContext> Propeties { get; }
 
         public List<string> SubTypes { get; }
 
         public DataModelContext()
         {
-            Propeties = new Dictionary<string, Parameter>();
+            Propeties = new Dictionary<string, ParameterContext>();
             SubTypes = new List<string>();
         }
     }

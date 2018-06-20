@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
+
 using DZzzz.Swag.CodeGeneration.CSharp.Common;
 using DZzzz.Swag.Generator.Core.Model;
 
@@ -6,45 +8,55 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
 {
     public class CSharpTypeNameResolver
     {
-        public string ResolveType(Parameter parameter)
+        public string ResolveType(TypeContext parameter)
         {
-            if (parameter.IsCollectionParameter)
+            if (parameter != null)
             {
-                return $"List<{ResolveType(parameter.Type, parameter.Format)}>";
+                if (parameter.IsCollectionParameter)
+                {
+                    return $"List<{ResolveTypeInternal(parameter)}>";
+                }
+
+                return ResolveTypeInternal(parameter);
             }
 
-            return ResolveType(parameter.Type, parameter.Format);
+            return string.Empty;
         }
 
-        private string ResolveType(string type, string format)
-        {
-            switch (type)
-            {
-                case "integer":
-                    return format.ToCamelCase() + "?";
-                case "number":
-                    return format.ToCamelCase() + "?";
-                case "string":
-                    if (format == "byte")
-                    {
-                        return "Byte?";
-                    }
-                    else if (format == "date" || format == "date-time")
-                    {
-                        return "DateTime?";
-                    }
-
-                    break;
-            }
-
-            return FixPossibleTypeName(type);
-        }
-
-        public string FixPossibleTypeName(string type)
+        public string FixPossibleTypeNameIssues(string type)
         {
             string typeName = type.Trim().Replace(" ", "");
-            
+
             return RemoveDashes(typeName).ToCamelCase();
+        }
+
+        private string ResolveTypeInternal(TypeContext parameter)
+        {
+            if (!String.IsNullOrEmpty(parameter.Type))
+            {
+                switch (parameter.Type)
+                {
+                    case "integer":
+                        return parameter.Format.ToCamelCase() + "?";
+                    case "number":
+                        return parameter.Format.ToCamelCase() + "?";
+                    case "string":
+                        if (parameter.Format == "byte")
+                        {
+                            return "Byte?";
+                        }
+                        else if (parameter.Format == "date" || parameter.Format == "date-time")
+                        {
+                            return "DateTime?";
+                        }
+
+                        break;
+                }
+
+                return FixPossibleTypeNameIssues(parameter.Type);
+            }
+
+            return parameter.Type;
         }
 
         private string RemoveDashes(string value)

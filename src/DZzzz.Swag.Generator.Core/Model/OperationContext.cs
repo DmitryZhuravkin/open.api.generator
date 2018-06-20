@@ -2,7 +2,7 @@
 
 namespace DZzzz.Swag.Generator.Core.Model
 {
-    public class OperationContext
+    public class OperationContext : TypeContext
     {
         public string Name { get; set; }
 
@@ -10,18 +10,16 @@ namespace DZzzz.Swag.Generator.Core.Model
 
         public string Method { get; set; }
 
-        public string ReturnTypeName { get; set; }
+        public ParameterContext BodyParameter { get; set; }
 
-        public Parameter BodyParameter { get; set; }
+        public IList<ParameterContext> QueryParameters { get; }
 
-        public IList<Parameter> QueryParameters { get; }
-
-        public IList<Parameter> PathParameters { get; }
+        public IList<ParameterContext> PathParameters { get; }
 
         public OperationContext()
         {
-            QueryParameters = new List<Parameter>();
-            PathParameters = new List<Parameter>();
+            QueryParameters = new List<ParameterContext>();
+            PathParameters = new List<ParameterContext>();
         }
     }
 }

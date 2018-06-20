@@ -2,6 +2,7 @@
 using System.IO;
 
 using DZzzz.Swag.CodeGeneration.CSharp.Common;
+using DZzzz.Swag.CodeGeneration.CSharp.Configuration;
 using DZzzz.Swag.Generator.Core.Model;
 
 using Microsoft.CodeAnalysis;
@@ -33,7 +34,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
         {
             try
             {
-                string className = typeNameResolver.FixPossibleTypeName(contextDataModel.Key);
+                string className = typeNameResolver.FixPossibleTypeNameIssues(contextDataModel.Key);
                 string fileName = $"{className}.cs";
                 string fileLocation = Path.Combine(configuration.OutputFolder, $"{configuration.OutputProjectName}\\Model\\{fileName}");
 
@@ -48,7 +49,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
                 var classDeclaration = SyntaxFactory.ClassDeclaration(className)
                     .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
-                foreach (KeyValuePair<string, Parameter> valuePropety in contextDataModel.Value.Propeties)
+                foreach (KeyValuePair<string, ParameterContext> valuePropety in contextDataModel.Value.Propeties)
                 {
                     string typeName = typeNameResolver.ResolveType(valuePropety.Value);
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 
 using DZzzz.Swag.CodeGeneration.CSharp.Common;
+using DZzzz.Swag.CodeGeneration.CSharp.Configuration;
 using DZzzz.Swag.Generator.Core.Interfaces;
 using DZzzz.Swag.Generator.Core.Model;
 
@@ -29,6 +30,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
         public void Generate(GenerationContext context)
         {
             modelGenerator.GenerateModelClasses(context);
+
             GenerateRepositoryBaseClass();
 
             foreach (OperationGroupContext operationGroupContext in context.Groups)
@@ -39,6 +41,18 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
 
         private void GenerateRepositoryBaseClass()
         {
+
+
+
+            try
+            {
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         private void GenerateRepositoryClass(OperationGroupContext operationGroupContext)
@@ -59,14 +73,12 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
 
                 NamespaceDeclarationSyntax @namespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName($"{configuration.OutputProjectName}.Repositories")).NormalizeWhitespace();
 
-                ConstructorDeclarationSyntax constructor = GenerateConstructor(className);
+                //ConstructorDeclarationSyntax constructor = GenerateConstructor(className);
 
                 ClassDeclarationSyntax classDeclaration = SyntaxFactory.ClassDeclaration(className)
                     .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                    .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName($"{configuration.FileNamePrefix}RepositoryBase")))
-                    .AddMembers(constructor);
-
-                // TODO: generate constructor
+                    .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName($"{configuration.FileNamePrefix}RepositoryBase")));
+                //.AddMembers(constructor);
 
                 foreach (OperationContext operationContext in operationGroupContext.Operations)
                 {
@@ -88,32 +100,32 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
             }
         }
 
-        private ConstructorDeclarationSyntax GenerateConstructor(string className)
-        {
-            ConstructorInitializerSyntax constructorInitializerSyntax = SyntaxFactory.ConstructorInitializer(
-                SyntaxKind.BaseConstructorInitializer,
-                SyntaxFactory.Token(SyntaxKind.ColonToken),
-                SyntaxFactory.Token(SyntaxKind.BaseKeyword),
-                SyntaxFactory.ArgumentList());
+        //private ConstructorDeclarationSyntax GenerateConstructor(string className)
+        //{
+        //    ConstructorInitializerSyntax constructorInitializerSyntax = SyntaxFactory.ConstructorInitializer(
+        //        SyntaxKind.BaseConstructorInitializer,
+        //        SyntaxFactory.Token(SyntaxKind.ColonToken),
+        //        SyntaxFactory.Token(SyntaxKind.BaseKeyword),
+        //        SyntaxFactory.ArgumentList());
 
-            ConstructorDeclarationSyntax constructor =
-                SyntaxFactory.ConstructorDeclaration(SyntaxFactory.Identifier(className))
-                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                    .AddBodyStatements()
-                    .WithParameterList(SyntaxFactory.ParseParameterList("(HttpRepositorySettings settings, IHttpClientFactory httpClientFactory, ISerializer<string> serializer)"))
-                    .WithInitializer(constructorInitializerSyntax);
+        //    ConstructorDeclarationSyntax constructor =
+        //        SyntaxFactory.ConstructorDeclaration(SyntaxFactory.Identifier(className))
+        //            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+        //            .AddBodyStatements()
+        //            .WithParameterList(SyntaxFactory.ParseParameterList("(HttpRepositorySettings settings, IHttpClientFactory httpClientFactory, ISerializer<string> serializer)"))
+        //            .WithInitializer(constructorInitializerSyntax);
 
-            return constructor;
-        }
+        //    return constructor;
+        //}
 
         private MethodDeclarationSyntax GenerateMethod(OperationContext operationContext)
         {
-            string returnTypeName = GetReturnType(operationContext);
+            string methodReturnType = GetMethodReturnType(operationContext);
             string relativeUrl = GenerateRelativeUrl(operationContext);
 
             StatementSyntax syntax = GetMethodSyntax(operationContext, relativeUrl);
 
-            var methodDeclaration = SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(returnTypeName), $"{operationContext.Name.ToCamelCase()}Async")
+            var methodDeclaration = SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(methodReturnType), $"{operationContext.Name.ToCamelCase()}Async")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.VirtualKeyword))
                 .WithBody(SyntaxFactory.Block(syntax));
@@ -121,42 +133,44 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
             if (operationContext.BodyParameter != null)
             {
                 string bodyParameterType = operationContext.BodyParameter?.Type?.ToCamelCase();
-                string bodyParameterName = operationContext.BodyParameter?.Name;
 
                 methodDeclaration = methodDeclaration.AddParameterListParameters(
                     SyntaxFactory.Parameter(
-                        SyntaxFactory.Identifier(bodyParameterName))
+                        SyntaxFactory.Identifier(ParameterContext.DefaultParameterName))
                         .WithType(SyntaxFactory.ParseTypeName(bodyParameterType)));
             }
 
             if (operationContext.PathParameters.Any())
             {
-                foreach (Parameter parameter in operationContext.PathParameters)
+                foreach (ParameterContext parameter in operationContext.PathParameters)
                 {
+                    string typeName = typeNameResolver.ResolveType(parameter);
                     methodDeclaration = methodDeclaration.AddParameterListParameters(
-                        SyntaxFactory.Parameter(SyntaxFactory.Identifier(parameter.Name)).WithType(SyntaxFactory.ParseTypeName(parameter.Type)));
+                        SyntaxFactory.Parameter(SyntaxFactory.Identifier(parameter.Name)).WithType(SyntaxFactory.ParseTypeName(typeName)));
                 }
             }
 
             if (operationContext.QueryParameters.Any())
             {
-                foreach (Parameter parameter in operationContext.QueryParameters)
+                foreach (ParameterContext parameter in operationContext.QueryParameters)
                 {
+                    string typeName = typeNameResolver.ResolveType(parameter);
                     methodDeclaration = methodDeclaration.AddParameterListParameters(
-                        SyntaxFactory.Parameter(SyntaxFactory.Identifier(parameter.Name)).WithType(SyntaxFactory.ParseTypeName(parameter.Type)));
+                        SyntaxFactory.Parameter(SyntaxFactory.Identifier(parameter.Name)).WithType(SyntaxFactory.ParseTypeName(typeName)));
                 }
             }
 
             return methodDeclaration;
         }
 
-        private string GetReturnType(OperationContext operationContext)
+        private string GetMethodReturnType(OperationContext operationContext)
         {
             string returnTypeName = "Task";
+            string paramReturnType = typeNameResolver.ResolveType(operationContext);
 
-            if (!String.IsNullOrEmpty(operationContext.ReturnTypeName))
+            if (!String.IsNullOrEmpty(paramReturnType))
             {
-                returnTypeName = $"Task<{operationContext.ReturnTypeName.ToCamelCase()}>";
+                returnTypeName = $"Task<{paramReturnType}>";
             }
 
             return returnTypeName;
@@ -167,16 +181,16 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
             StatementSyntax syntax;
 
             string method = $"HttpMethod.{operationContext.Method.ToLower().ToCamelCase()}";
-            string returnType = operationContext.ReturnTypeName?.ToCamelCase();
-            string bodyParameterType = operationContext.BodyParameter?.Type?.ToCamelCase();
-            string bodyParameterName = operationContext.BodyParameter?.Name;
+            string returnType = typeNameResolver.ResolveType(operationContext);
+
+            string bodyParameterType = typeNameResolver.ResolveType(operationContext.BodyParameter);
 
             if (String.IsNullOrEmpty(returnType))
             {
                 if (operationContext.BodyParameter != null)
                 {
                     syntax = SyntaxFactory.ParseStatement($"return SendRequestAsync<{bodyParameterType}>($\"{relativeUrl}\", " +
-                        $"{method}, {bodyParameterName});");
+                        $"{method}, {ParameterContext.DefaultParameterName});");
                 }
                 else
                 {
@@ -189,7 +203,7 @@ namespace DZzzz.Swag.CodeGeneration.CSharp
                 if (operationContext.BodyParameter != null)
                 {
                     syntax = SyntaxFactory.ParseStatement($"return SendRequestWithResultAsync<{bodyParameterType}, {returnType}>($\"{relativeUrl}\", " +
-                        $"{method}, {bodyParameterName});");
+                        $"{method}, {ParameterContext.DefaultParameterName});");
                 }
                 else
                 {

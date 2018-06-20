@@ -1,4 +1,5 @@
 ﻿using DZzzz.Swag.CodeGeneration.CSharp;
+using DZzzz.Swag.CodeGeneration.CSharp.Configuration;
 using DZzzz.Swag.Generator.Core.Model;
 using DZzzz.Swag.Specification.Base;
 using DZzzz.Swag.Specification.Version12;

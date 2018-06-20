@@ -73,7 +73,7 @@ namespace DZzzz.Swag.Specification.Version12
 
                     foreach (KeyValuePair<string, PropertyObject> propertyObject in modelObject.Value.Properties)
                     {
-                        Parameter parameter = new Parameter { Name = propertyObject.Key };
+                        ParameterContext parameter = new ParameterContext { Name = propertyObject.Key };
                         InitParameterFromDataTypeObject(parameter, propertyObject.Value);
 
                         dataModelContext.Propeties.Add(propertyObject.Key, parameter);
@@ -98,13 +98,14 @@ namespace DZzzz.Swag.Specification.Version12
                     {
                         RelativeUrl = $"{apiDeclaration.BasePath}{operationPath}",
                         Method = operation.Method.ToString(),
-                        Name = operation.NickName,
-                        ReturnTypeName = operation.Type
+                        Name = operation.NickName
                     };
+
+                    InitParameterFromDataTypeObject(operationContext, operation);
 
                     foreach (ParameterObject parameterObject in operation.Parameters)
                     {
-                        Parameter parameter = new Parameter
+                        ParameterContext parameter = new ParameterContext
                         {
                             Name = parameterObject.Name
                         };
@@ -137,7 +138,7 @@ namespace DZzzz.Swag.Specification.Version12
             dataContext.Groups.Add(operationGroupContext);
         }
 
-        private void InitParameterFromDataTypeObject(Parameter parameter, DataTypeObject dataTypeObject)
+        private void InitParameterFromDataTypeObject(TypeContext parameter, DataTypeObject dataTypeObject)
         {
             parameter.IsCollectionParameter = String.Compare(dataTypeObject.Type, "array", StringComparison.OrdinalIgnoreCase) == 0;
 
